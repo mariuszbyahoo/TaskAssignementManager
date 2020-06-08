@@ -12,6 +12,14 @@ namespace TaskAssignementManager.Data
     {
         public TasksDbContext Ctx { get; set; }
 
+        private ICRUDRepo<UserTask> _tasks;
+
+        public TaskGroupsRepo(TasksDbContext ctx, ICRUDRepo<UserTask> tasks)
+        {
+            Ctx = ctx;
+            _tasks = tasks;
+        }
+
         public async Task<TaskGroup> AddEntity(TaskGroup entity)
         {
             await Ctx.TaskGroups.AddAsync(entity);
@@ -27,7 +35,17 @@ namespace TaskAssignementManager.Data
 
         public async Task<ICollection<TaskGroup>> GetEntites()
         {
-            return await Ctx.TaskGroups.ToArrayAsync();
+            var res =  await Ctx.TaskGroups.ToArrayAsync();
+            var allTasks = await _tasks.GetEntites();
+            foreach (var group in res)
+            {
+                var tasks = allTasks.Where(t => t.GroupId.Equals(group.Id)).ToArray();
+                for (int i = 0; i < tasks.Count(); i++)
+                {
+                    group.UserTasks.Prepend<UserTask>(tasks[i]);
+                }
+            }
+            return res;
         }
 
         public TaskGroup GetEntity(Guid entityId)

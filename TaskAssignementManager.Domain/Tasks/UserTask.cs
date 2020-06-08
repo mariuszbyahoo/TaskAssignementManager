@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 using TaskAssignementManager.Domain.Enums;
 
 namespace TaskAssignementManager.Domain.Tasks
@@ -12,6 +13,7 @@ namespace TaskAssignementManager.Domain.Tasks
         public DateTime Deadline { get ; set ; }
         public Guid UsersId { get; set; } = Guid.Empty; // Unassigned by default
         public CompletionStatus Status { get ; set ; }
+        [JsonIgnore]
         public TaskGroup Group { get; set; }
         public Guid GroupId { get; set; } // FK
     }

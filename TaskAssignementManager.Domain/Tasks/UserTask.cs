@@ -5,11 +5,14 @@ using TaskAssignementManager.Domain.Enums;
 
 namespace TaskAssignementManager.Domain.Tasks
 {
-    public class UserTask : IUserTask
+    public class UserTask
     {
+        public Guid Id { get; set; } = Guid.NewGuid(); // PK
         public string Name { get; set ; }
         public DateTime Deadline { get ; set ; }
         public Guid UsersId { get; set; } = Guid.Empty; // Unassigned by default
         public CompletionStatus Status { get ; set ; }
+        public TaskGroup Group { get; set; }
+        public Guid GroupId { get; set; } // FK
     }
 }

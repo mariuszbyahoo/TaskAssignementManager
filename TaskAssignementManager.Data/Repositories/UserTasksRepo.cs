@@ -20,16 +20,16 @@ namespace TaskAssignementManager.Data
 
         public async Task<UserTask> AddEntity(UserTask entity)
         {
-            Ctx.UserTasks.Add(entity);
+            await Ctx.UserTasks.AddAsync(entity);
             await Ctx.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<UserTask> UpdateEntity(UserTask newEntity)
+        public async Task<UserTask> UpdateEntity(UserTask entity)
         {
-            Ctx.UserTasks.Update(newEntity);
+            Ctx.UserTasks.Update(entity);
             await Ctx.SaveChangesAsync();
-            return newEntity;
+            return entity;
         }
 
         public async Task DeleteEntity(UserTask entity)

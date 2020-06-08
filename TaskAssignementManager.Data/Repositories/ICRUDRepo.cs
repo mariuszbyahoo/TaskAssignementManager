@@ -21,9 +21,9 @@ namespace TaskAssignementManager.Data
         /// <summary>
         /// Update an existing entity with new data
         /// </summary>
-        /// <param name="newEntity">New data to update with</param>
+        /// <param name="entity">New data to update with</param>
         /// <returns></returns>
-        Task<T> UpdateEntity(T newEntity);
+        Task<T> UpdateEntity(T entity);
 
         /// <summary>
         /// Deletes an entity from repo

@@ -24,8 +24,9 @@ namespace TaskAssignementManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<TasksDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            services.AddDbContext<TasksDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICRUDRepo<UserTask>, UserTasksRepo>();
+            services.AddScoped<ICRUDRepo<TaskGroup>, TaskGroupsRepo>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

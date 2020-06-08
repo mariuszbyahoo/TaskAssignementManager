@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using TaskAssignementManager.Domain.Tasks;
 
-namespace TaskAssignementManager.Data
+namespace TaskAssignementManager.Data.Context
 {
     public class TasksDbContext : DbContext
     {

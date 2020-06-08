@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TaskAssignementManager.Data.Context;
+using TaskAssignementManager.Data;
+using TaskAssignementManager.Domain.Tasks;
 
 namespace TaskAssignementManager
 {
@@ -24,6 +25,7 @@ namespace TaskAssignementManager
         {
             services.AddControllersWithViews();
             services.AddDbContext<TasksDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            services.AddScoped<ICRUDRepo<UserTask>, UserTasksRepo>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

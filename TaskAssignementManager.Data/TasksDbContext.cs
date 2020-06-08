@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using TaskAssignementManager.Domain.Tasks;
 
-namespace TaskAssignementManager.Data.Context
+namespace TaskAssignementManager.Data
 {
     public class TasksDbContext : DbContext
     {
-        protected DbSet<TaskGroup> TaskGroups { get; set; }
-        protected DbSet<UserTask> UserTasks { get; set; } // this table corresponds to each task, 
+        internal DbSet<TaskGroup> TaskGroups { get; set; }
+        internal DbSet<UserTask> UserTasks { get; set; } // this table corresponds to each task, 
         public TasksDbContext(DbContextOptions<TasksDbContext> options) : base(options)
         {
         }

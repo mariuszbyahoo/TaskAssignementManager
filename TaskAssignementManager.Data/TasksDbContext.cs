@@ -14,41 +14,48 @@ namespace TaskAssignementManager.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //var seedGroup = new TaskGroup
-            //{
-            //    Name = "SeedTaskGroup",
-            //    UserTasks = new UserTask[] {
-            //        new UserTask()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            UsersId = Guid.Empty,
-            //            Name = "SeedTask1_Unassigned",
-            //            Deadline = DateTime.Now.AddDays(10),
-            //            Status = Domain.Enums.CompletionStatus.New,
-            //        },
-            //        new UserTask()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            UsersId = Guid.Empty,
-            //            Name = "SeedTask2_Unassigned",
-            //            Deadline = DateTime.Now.AddDays(5),
-            //            Status = Domain.Enums.CompletionStatus.InProgress,
-            //        },
-            //        new UserTask()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            UsersId = Guid.NewGuid(), // some GUID
-            //            Name = "Completed_SeedTask3_AssignedToUnexistingUser",
-            //            Deadline = DateTime.Now.AddDays(8),
-            //            Status = Domain.Enums.CompletionStatus.Done,
-            //        }
-            //    }
-            //};
+            var seedGroup = new TaskGroup
+            {
+                Id = Guid.NewGuid(),
+                Name = "SeedTaskGroup"
+            };
             modelBuilder.Entity<UserTask>()
                 .HasOne(g => g.Group)
                 .WithMany(t => t.UserTasks)
                 .HasForeignKey(k => k.GroupId);
-            //modelBuilder.Entity<TaskGroup>().HasData(seedGroup);
+
+            modelBuilder.Entity<UserTask>().HasData(
+                new UserTask[]
+                {
+                    new UserTask()
+                        {
+                            Id = Guid.NewGuid(),
+                            UsersId = Guid.Empty,
+                            Name = "SeedTask1_Unassigned",
+                            Deadline = DateTime.Now.AddDays(10),
+                            Status = Domain.Enums.CompletionStatus.New,
+                            GroupId = seedGroup.Id
+                        },
+                        new UserTask()
+                        {
+                            Id = Guid.NewGuid(),
+                            UsersId = Guid.Empty,
+                            Name = "SeedTask2_Unassigned",
+                            Deadline = DateTime.Now.AddDays(5),
+                            Status = Domain.Enums.CompletionStatus.InProgress,
+                            GroupId = seedGroup.Id
+                        },
+                        new UserTask()
+                        {
+                            Id = Guid.NewGuid(),
+                            UsersId = Guid.NewGuid(), // some GUID
+                            Name = "Completed_SeedTask3_AssignedToUnexistingUser",
+                            Deadline = DateTime.Now.AddDays(8),
+                            Status = Domain.Enums.CompletionStatus.Done,
+                            GroupId = seedGroup.Id
+                        }
+                });
+            modelBuilder.Entity<TaskGroup>().HasData(seedGroup);
         }
     }
 }

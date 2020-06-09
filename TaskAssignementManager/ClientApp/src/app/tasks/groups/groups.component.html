@@ -1,1 +1,22 @@
-<p>groups works!</p>
+<p>Add new tasks group: [Tu wstaw ikonę]</p>
+
+<mat-nav-list>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Tasks</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let group of groups">
+            <td><a mat-list-item href="/tasks/{{group.id}}">{{ group.name }}</a></td>
+            <td><h4>{{ group.userTasks.length }}</h4></td>
+            <td>
+                <a mat-icon-button color="accent" href="taskGroup/***TuWstawNoweId***">
+                <mat-icon>border_color</mat-icon>
+                </a>
+            </td>
+            <td><a mat-icon-button color="warn"><mat-icon>delete_forever</mat-icon></a></td>
+        </tr>
+    </table>
+ </mat-nav-list>

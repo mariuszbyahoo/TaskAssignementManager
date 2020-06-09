@@ -13,7 +13,9 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { TasksModule } from './tasks/tasks.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GroupsComponent } from './tasks/groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    TasksModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
@@ -35,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'groups', component: GroupsComponent}
     ]),
     BrowserAnimationsModule
   ],

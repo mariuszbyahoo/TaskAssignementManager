@@ -1,11 +1,10 @@
 <mat-toolbar color="primary">  
   <mat-menu #appMenu="matMenu">
-    <a mat-menu-item>First</a>
-    <a mat-menu-item>Second</a>
-    <a mat-menu-item><mat-icon>home</mat-icon></a>
+    <a mat-menu-item [routerLink]="['/groups']">Tasks</a>
+    <a mat-menu-item [routerLink]="['/']"><mat-icon>home</mat-icon></a>
   </mat-menu>    
-  <button mat-button color="accent" [matMenuTriggerFor]="appMenu">
-    <span>Task Assigner</span>
+  <button mat-raised-button color="accent" [matMenuTriggerFor]="appMenu">
+    <h1>Task Assigner</h1>
   </button>
 </mat-toolbar>
 

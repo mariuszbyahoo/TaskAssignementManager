@@ -1,7 +1,15 @@
-<header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
+<mat-toolbar color="primary">  
+  <mat-menu #appMenu="matMenu">
+    <a mat-menu-item>First</a>
+    <a mat-menu-item>Second</a>
+    <a mat-menu-item><mat-icon>home</mat-icon></a>
+  </mat-menu>    
+  <button mat-button color="accent" [matMenuTriggerFor]="appMenu">
+    <span>Task Assigner</span>
+  </button>
+</mat-toolbar>
+
+  <!-- <mat-toolbar color="primary">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">TaskAssignementManager</a>
       <button
@@ -37,8 +45,9 @@
               >Fetch data</a
             >
           </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+          </li>
         </ul>
       </div>
     </div>
-  </nav>
-</header>
+  </mat-toolbar> -->

@@ -35,5 +35,28 @@ namespace TaskAssignementManager.Web.Controllers
             var result = await _taskGroups.GetEntites();
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<UserTask>> Create([FromBody] UserTask entity)
+        {
+            await _userTasks.AddEntity(entity);
+            return Created("tasks", entity);
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult<UserTask>> Patch([FromBody] UserTask entity)
+        {
+            await _userTasks.UpdateEntity(entity);
+            return Ok(entity);
+        }
+
+        [HttpDelete]
+        [Route("{Id}")]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var entity = _userTasks.GetEntity(Id);
+            await _userTasks.DeleteEntity(entity);
+            return NoContent();
+        }
     }
 }

@@ -9,7 +9,8 @@ using TaskAssignementManager.Domain.Tasks;
 
 namespace TaskAssignementManager.Web.Controllers
 {
-    [Route("tasks")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class TasksController : ControllerBase
     {
         private ICRUDRepo<TaskGroup> _taskGroups;

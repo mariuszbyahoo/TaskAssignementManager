@@ -50,7 +50,14 @@ namespace TaskAssignementManager.Data
 
         public TaskGroup GetEntity(Guid entityId)
         {
-            return Ctx.TaskGroups.Where(g => g.Id.Equals(entityId)).FirstOrDefault();
+            var res = Ctx.TaskGroups.Where(g => g.Id.Equals(entityId)).FirstOrDefault();
+            var allTasks = _tasks.GetEntites().Result;
+            var tasks = allTasks.Where(t => t.GroupId.Equals(res.Id)).ToArray();
+            for (int i = 0; i < tasks.Count(); i++)
+            {
+                res.UserTasks.Prepend<UserTask>(tasks[i]);
+            }
+            return res;
         }
 
         public async Task<TaskGroup> UpdateEntity(TaskGroup entity)

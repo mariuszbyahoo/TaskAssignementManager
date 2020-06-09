@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using TaskAssignementManager.Data;
+using TaskAssignementManager.Domain.Tasks;
+
+namespace TaskAssignementManager.Web.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GroupsController : ControllerBase
+    {
+        private ICRUDRepo<TaskGroup> _taskGroups;
+
+        public GroupsController(ICRUDRepo<TaskGroup> taskGroups)
+        {
+            _taskGroups = taskGroups;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ICollection<TaskGroup>>> Get()
+        {
+            var res = await _taskGroups.GetEntites();
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route("{Id}")]
+        public ActionResult<TaskGroup> Get(Guid Id)
+        {
+            return Ok(_taskGroups.GetEntity(Id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TaskGroup>> Create([FromBody] TaskGroup entity)
+        {
+            var res = await _taskGroups.AddEntity(entity);
+            return Created("groups", res);
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult<TaskGroup>> Patch([FromBody] TaskGroup entity)
+        {
+            var res = await _taskGroups.UpdateEntity(entity);
+            return Ok(res);
+        }
+
+        [HttpDelete]
+        [Route("{Id}")]
+        public async Task<ActionResult<TaskGroup>> Delete(Guid Id)
+        {
+            var entity = _taskGroups.GetEntity(Id);
+            await _taskGroups.DeleteEntity(entity);
+            return NoContent();
+        }
+    }
+}

@@ -16,11 +16,11 @@
   </mat-form-field>
 <table>
     <thead>
-        <th>User Tasks list</th>
-        <th>Specific User Task</th>
+        <th style="width: 50%;">User Tasks list</th>
+        <th style="width: 50%;">Specific User Task</th>
     </thead>
     <tr>
-        <td>
+        <td id="leftCell">
             <mat-nav-list>
                 <tr *ngIf="tiles.length === 0">Add new UserTasks to populate this table</tr>
                 <tr *ngFor="let tile of tiles">
@@ -37,7 +37,7 @@
                     </td>
             </mat-nav-list>
         </td>
-        <td>
+        <td id="rightCell">
             <mat-nav-list>
                 <tr><app-task-form></app-task-form></tr>
             </mat-nav-list>

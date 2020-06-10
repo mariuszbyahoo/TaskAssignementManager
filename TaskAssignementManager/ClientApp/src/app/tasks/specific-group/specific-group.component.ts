@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ITaskGroup } from '../groups/ITaskGroup';
 import { TaskGroupService } from '../services/task-group.service';
 import { IUserTask } from '../userTasks/IUserTask';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-specific-group',
@@ -17,6 +18,15 @@ export class SpecificGroupComponent implements OnInit {
   constructor(private route: ActivatedRoute, private taskGroupService: TaskGroupService) {}
   tiles: Tile[] 
 
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+
+  emailFormControl = new FormControl('', [
+    Validators.required
+  ]);
+  
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.taskGroupService.getTaskGroup(this.id).subscribe(group => {

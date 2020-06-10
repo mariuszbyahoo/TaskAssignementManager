@@ -1,5 +1,10 @@
-<h4>Task Group's Name:</h4>
-<input type="text" value="{{name}}">
+<mat-form-field class="specific-group" style="width: 100%; text-align: center;">
+    <mat-label>Name of this task group</mat-label>
+    <input matInput type="text" [(ngModel)]="name">
+    <button mat-button *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
 <table>
     <thead>
         <th>User Tasks list</th>

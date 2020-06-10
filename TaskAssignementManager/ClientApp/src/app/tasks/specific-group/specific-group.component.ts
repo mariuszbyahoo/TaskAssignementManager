@@ -46,7 +46,7 @@ export class SpecificGroupComponent implements OnInit {
         for (let i = 0; i < this.taskGroup.userTasks.length; i++){
           let task = this.taskGroup.userTasks[i];
           this.userTasks.push(task);
-          this.tiles.push(new Tile(task.name, 2, 1, 'lightgray'));
+          this.tiles.push(new Tile(task.name, 1, 1, 'lightgray'));
         }
       })
     }

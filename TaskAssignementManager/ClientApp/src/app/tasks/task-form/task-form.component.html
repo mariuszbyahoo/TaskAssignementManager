@@ -1,1 +1,35 @@
-<p>task-form works!</p>
+<table class="userTaskForm">
+    <tr>
+        <mat-form-field>
+            <mat-label>Task's name</mat-label>
+            <input matInput>
+        </mat-form-field>
+    </tr>
+    <tr>
+        <mat-form-field>
+            <mat-label>Task's deadline</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </tr>
+    <tr>
+        <mat-form-field>
+            <mat-label>Assigned to</mat-label>
+            <mat-select>
+              <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
+              <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </tr>
+    <tr>
+        <mat-form-field>
+            <mat-label>Task's status</mat-label>
+            <mat-select>
+              <mat-option value="0">Todo</mat-option>
+              <mat-option value="1">In Progress</mat-option>
+              <mat-option value="2">Done already</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </tr>
+</table>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IUserTask } from '../userTasks/IUserTask';
 
 @Component({
   selector: 'app-task-form',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent implements OnInit {
-
+  task : IUserTask
   constructor() { }
 
   ngOnInit() {

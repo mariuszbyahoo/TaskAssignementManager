@@ -7,14 +7,20 @@ import {  MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatInputModule } from '@angular/material/input';
+import {  MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 import { SpecificGroupComponent } from './specific-group/specific-group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 
 @NgModule({
-  declarations: [GroupsComponent, SpecificGroupComponent, TaskFormComponent],
+  declarations: [
+    GroupsComponent, 
+    SpecificGroupComponent, 
+    TaskFormComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -23,7 +29,10 @@ import { TaskFormComponent } from './task-form/task-form.component';
     MatIconModule,
     MatButtonModule,
     MatGridListModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
   exports: [GroupsComponent]
 })

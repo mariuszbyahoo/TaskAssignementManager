@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IUserTask } from '../userTasks/IUserTask';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+
+import { IUserTask } from '../userTasks/IUserTask';
 import { ITaskGroup } from '../userTasks/ITaskGroup';
 import { TaskGroupService } from '../services/task-group.service';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { UserTaskService } from '../services/user-task.service';
 
 @Component({
   selector: 'app-specific-group',
   templateUrl: './specific-group.component.html',
-  styleUrls: ['./specific-group.component.css']
+  styleUrls: ['./specific-group.component.css'],
+  providers: [UserTaskService]
 })
 export class SpecificGroupComponent implements OnInit {
   id: string 
@@ -17,7 +20,16 @@ export class SpecificGroupComponent implements OnInit {
   taskGroup: ITaskGroup
   userTasks: IUserTask[]
   matcher = new MyErrorStateMatcher();
-  constructor(private route: ActivatedRoute, private taskGroupService: TaskGroupService) {}
+
+  constructor(
+    private route: ActivatedRoute, 
+    private taskGroupService: TaskGroupService,
+    private userTaskService: UserTaskService) {
+    userTaskService.taskSelected$.subscribe(task => {
+      this.userTasks.push(task);
+    });
+  }
+
   tiles: Tile[] 
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -34,6 +46,10 @@ export class SpecificGroupComponent implements OnInit {
     this.taskGroupService.patchTaskGroup(this.taskGroup).subscribe(g => {
       this.taskGroup = g;
     })
+  }
+
+  sendTask(tile){
+    console.log(tile);
   }
   
   ngOnInit() {

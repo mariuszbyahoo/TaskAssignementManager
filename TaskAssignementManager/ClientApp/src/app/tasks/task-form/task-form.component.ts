@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IUserTask } from '../userTasks/IUserTask';
 import { UserTaskService } from '../services/user-task.service';
 
@@ -8,7 +8,7 @@ import { UserTaskService } from '../services/user-task.service';
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent implements OnInit {
-  task : IUserTask
+  @Input() task : IUserTask
   constructor(private userTaskService : UserTaskService) { }
 
   ngOnInit() {}

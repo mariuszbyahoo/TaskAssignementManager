@@ -24,7 +24,7 @@
             <mat-nav-list>
                 <tr *ngIf="tiles.length === 0">Add new UserTasks to populate this table</tr>
                 <tr *ngFor="let tile of tiles">
-                    <td><a mat-list-item href="">{{ tile.text }}</a></td>
+                    <td><a mat-list-item (click)="sendTask(tile)">{{ tile.text }}</a></td>
                     <td>
                         <a mat-icon-button color="accent" href="">
                             <mat-icon>border_color</mat-icon>

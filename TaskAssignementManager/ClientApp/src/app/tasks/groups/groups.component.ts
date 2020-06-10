@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskGroupService } from '../services/task-group.service';
-import { ITaskGroup } from './ITaskGroup';
+import { ITaskGroup } from '../userTasks/ITaskGroup';
 
 @Component({
   selector: 'app-groups',

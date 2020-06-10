@@ -16,6 +16,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TasksModule } from './tasks/tasks.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './tasks/groups/groups.component';
+import { SpecificGroupComponent } from './tasks/specific-group/specific-group.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { GroupsComponent } from './tasks/groups/groups.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'groups', component: GroupsComponent}
+      { path: 'groups', component: GroupsComponent},
+      { path: 'taskGroup', component: SpecificGroupComponent },
+      { path: 'taskGroup/:id', component: SpecificGroupComponent }
     ]),
     BrowserAnimationsModule
   ],

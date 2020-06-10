@@ -4,11 +4,12 @@ import { GroupsComponent } from './groups/groups.component';
 import {  MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SpecificGroupComponent } from './specific-group/specific-group.component';
 
 
 
 @NgModule({
-  declarations: [GroupsComponent],
+  declarations: [GroupsComponent, SpecificGroupComponent],
   imports: [
     CommonModule,
     MatListModule,

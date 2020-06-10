@@ -7,16 +7,16 @@
             <th>Tasks</th>
             <th></th>
             <th>
-                <a mat-icon-button color="primary" href="tasks">
+                <a mat-icon-button color="primary" href="/taskGroup">
                     <mat-icon>add_box</mat-icon>
                 </a>
             </th>
         </tr>
         <tr *ngFor="let group of groups">
-            <td><a mat-list-item href="/tasks/{{group.id}}">{{ group.name }}</a></td>
+            <td><a mat-list-item href="/taskGroup/{{group.id}}">{{ group.name }}</a></td>
             <td><h4>{{ group.userTasks.length }}</h4></td>
             <td>
-                <a mat-icon-button color="accent" href="tasks">
+                <a mat-icon-button color="accent" href="/taskGroup/{{group.id}}">
                     <mat-icon>border_color</mat-icon>
                 </a>
             </td>

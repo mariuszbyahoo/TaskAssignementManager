@@ -48,8 +48,10 @@ export class SpecificGroupComponent implements OnInit {
     })
   }
 
-  sendTask(tile){
-    console.log(tile);
+  sendTask(tile) {
+    this.userTaskService.getUserTask(tile.taskId).subscribe(t => {
+      this.userTaskService.sendTask(t);
+    })
   }
   
   ngOnInit() {

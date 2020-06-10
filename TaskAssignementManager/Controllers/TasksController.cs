@@ -29,6 +29,14 @@ namespace TaskAssignementManager.Web.Controllers
             return Ok(result);
         }
 
+        [Route("{Id}")]
+        [HttpGet]
+        public ActionResult<UserTask> GetUserTask(Guid Id)
+        {
+            var entity = _userTasks.GetEntity(Id);
+            return Ok(entity);
+        }
+
         [Route("grouped")]
         [HttpGet]
         public async Task<ActionResult<ICollection<TaskGroup>>> GetGrouped()

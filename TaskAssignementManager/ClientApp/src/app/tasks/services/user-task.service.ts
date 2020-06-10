@@ -10,7 +10,7 @@ export class UserTaskService {
   private url :string;
 
   constructor(private http : HttpClient, @Inject('BASE_URL') url: string) {
-    this.url = `${this.url}/api/tasks`;
+    this.url = `${url}api/tasks`;
   }
 
   // Observable IUserTask source
@@ -21,7 +21,6 @@ export class UserTaskService {
 
   // Service message commands
   sendTask(task: IUserTask) {
-    console.log(task);
     this.taskSource.next(task);
   }
 

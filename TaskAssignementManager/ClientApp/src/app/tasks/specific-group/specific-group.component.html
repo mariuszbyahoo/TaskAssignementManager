@@ -26,11 +26,6 @@
                 <tr *ngFor="let tile of tiles">
                     <td><a mat-list-item (click)="sendTask(tile)">{{ tile.text }}</a></td>
                     <td>
-                        <a mat-icon-button color="accent" href="">
-                            <mat-icon>border_color</mat-icon>
-                        </a>
-                    </td>
-                    <td>
                         <a mat-icon-button color="warn" (click)="ngOnInit()">
                             <mat-icon>delete_forever</mat-icon>
                         </a>

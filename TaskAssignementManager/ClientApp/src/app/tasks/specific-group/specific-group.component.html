@@ -1,14 +1,25 @@
-<p>specific-group works!</p>
-<div>
-    Showing product details for product: {{id}}
-</div>
-<mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile
-        *ngFor="let tile of tiles"
-        [colspan]="tile.cols"
-        [rowspan]="tile.rows"
-        [style.background]="tile.color">
-      {{tile.text}}
-    </mat-grid-tile>
-  </mat-grid-list>
+<h4>Task Group's Name:</h4>
+<input type="text" value="{{name}}">
+<table>
+    <thead>
+        <th>User Tasks list</th>
+        <th>Specific User Task</th>
+    </thead>
+<mat-nav-list>
+    <tr *ngFor="let tile of tiles">
+        <td><a mat-list-item href="">{{ tile.text }}</a></td>
+        <td>
+            <a mat-icon-button color="accent" href="">
+                <mat-icon>border_color</mat-icon>
+            </a>
+        </td>
+        <td>
+            <a mat-icon-button color="warn" (click)="ngOnInit()">
+                <mat-icon>delete_forever</mat-icon>
+            </a>
+        </td>
+    </tr>
+  </mat-nav-list>
+</table>
+
 

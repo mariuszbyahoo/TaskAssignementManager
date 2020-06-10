@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITaskGroup } from '../groups/ITaskGroup';
 import { TaskGroupService } from '../services/task-group.service';
+import { IUserTask } from '../userTasks/IUserTask';
 
 @Component({
   selector: 'app-specific-group',
@@ -12,6 +13,7 @@ export class SpecificGroupComponent implements OnInit {
   id: string 
   name: string
   taskGroup: ITaskGroup
+  userTasks: IUserTask[]
   constructor(private route: ActivatedRoute, private taskGroupService: TaskGroupService) {}
   tiles: Tile[] 
 
@@ -21,7 +23,12 @@ export class SpecificGroupComponent implements OnInit {
       console.log(group);
       this.taskGroup = group;
       this.name = this.taskGroup.name;
-      this.tiles.unshift(new Tile(this.name, 4, 1, 'lightblue'));
+      this.userTasks = new Array<IUserTask>(0);
+      for (let i = 0; i < this.taskGroup.userTasks.length; i++){
+        let task = this.taskGroup.userTasks[i];
+        this.userTasks.push(task);
+        this.tiles.push(new Tile(task.name, 2, 1, 'lightgray'));
+      }
     })
     //this.taskGroupService.getTaskGroup(id) use specific method for retreiving one taskGroup
     this.tiles = [

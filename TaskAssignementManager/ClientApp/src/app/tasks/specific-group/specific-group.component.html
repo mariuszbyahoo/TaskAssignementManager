@@ -6,11 +6,10 @@
     <button mat-button color="warn" *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
       <mat-icon>close</mat-icon>
     </button>
-    <button mat-button color="primary" *ngIf="name" matSuffix mat-icon-button aria-label="Save" (click)='changeTaskGroupsName(name)'>
+    <button mat-button color="primary" *ngIf="name && id" matSuffix mat-icon-button aria-label="Save" (click)='changeTaskGroupsName(name)'>
         <mat-icon>save</mat-icon>
     </button>
-
-    <mat-hint>Click save button on the right side to change the group's title, otherwise, it will be left as is.</mat-hint>
+    <mat-hint *ngIf="id">Click save button on the right side to change the group's title, otherwise, it will be left as is.</mat-hint>
     <mat-error *ngIf="taskGroupNameFormControl.hasError('required')">
         TaskGroup's title is <strong>required</strong>
     </mat-error>
@@ -23,6 +22,7 @@
     <tr>
         <td>
             <mat-nav-list>
+                <tr *ngIf="tiles.length === 0">Add new UserTasks to populate this table</tr>
                 <tr *ngFor="let tile of tiles">
                     <td><a mat-list-item href="">{{ tile.text }}</a></td>
                     <td>

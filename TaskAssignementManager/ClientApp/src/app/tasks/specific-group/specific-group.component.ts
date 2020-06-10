@@ -31,26 +31,27 @@ export class SpecificGroupComponent implements OnInit {
 
   changeTaskGroupsName(name) {
     this.taskGroup.name = name;
-    console.log(this.taskGroup);
-    //this.taskGroupService.
+    this.taskGroupService.patchTaskGroup(this.taskGroup).subscribe(g => {
+      this.taskGroup = g;
+    })
   }
   
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.taskGroupService.getTaskGroup(this.id).subscribe(group => {
-      this.taskGroup = group;
-      this.name = this.taskGroup.name;
-      this.userTasks = new Array<IUserTask>(0);
-      for (let i = 0; i < this.taskGroup.userTasks.length; i++){
-        let task = this.taskGroup.userTasks[i];
-        this.userTasks.push(task);
-        this.tiles.push(new Tile(task.name, 2, 1, 'lightgray'));
-      }
-    })
+    if(this.id){
+      this.taskGroupService.getTaskGroup(this.id).subscribe(group => {
+        this.taskGroup = group;
+        this.name = this.taskGroup.name;
+        this.userTasks = new Array<IUserTask>(0);
+        for (let i = 0; i < this.taskGroup.userTasks.length; i++){
+          let task = this.taskGroup.userTasks[i];
+          this.userTasks.push(task);
+          this.tiles.push(new Tile(task.name, 2, 1, 'lightgray'));
+        }
+      })
+    }
     //this.taskGroupService.getTaskGroup(id) use specific method for retreiving one taskGroup
     this.tiles = [
-      {text: 'taskGroup', cols: 2, rows: 1, color: 'lightpink'},
-      {text: 'task', cols: 2, rows: 1, color: '#DDBDF1'},
     ]
   }
 

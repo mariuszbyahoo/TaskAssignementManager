@@ -62,7 +62,7 @@ export class SpecificGroupComponent implements OnInit {
         for (let i = 0; i < this.taskGroup.userTasks.length; i++){
           let task = this.taskGroup.userTasks[i];
           this.userTasks.push(task);
-          this.tiles.push(new Tile(task.name, 1, 1, 'lightgray'));
+          this.tiles.push(new Tile(task.name, 1, 1, 'lightgray', task.id));
         }
       })
     }
@@ -85,11 +85,13 @@ class Tile {
   cols: number;
   rows: number;
   color: string;
+  taskId: string;
 
-  constructor(text, cols, rows, color){
+  constructor(text, cols, rows, color, taskId){
     this.text = text;
     this.cols = cols;
     this.rows = rows;
     this.color = color;
+    this.taskId = taskId;
   }
 }

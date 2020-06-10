@@ -68,7 +68,6 @@ export class SpecificGroupComponent implements OnInit {
         }
       })
     }
-    //this.taskGroupService.getTaskGroup(id) use specific method for retreiving one taskGroup
     this.tiles = [
     ]
   }

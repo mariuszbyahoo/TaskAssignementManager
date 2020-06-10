@@ -3,7 +3,7 @@
         <mat-form-field>
             <mat-label>Task's name</mat-label>
             <input matInput type="text" [formControl]="taskNameFormControl" 
-                [errorStateMatcher]="matcher" [(ngModel)]="task.name">
+                [errorStateMatcher]="matcher" [(value)]="task.name">
             <button color="warn" *ngIf="task.name" matSuffix 
                 mat-icon-button aria-label="Clear" (click)="task.name=''">
                 <mat-icon>close</mat-icon>
@@ -16,7 +16,7 @@
     <tr>
         <mat-form-field>
             <mat-label>Task's deadline</mat-label>
-            <input matInput [matDatepicker]="picker" [min]="todayDate"[(ngModel)]="task.deadline">
+            <input matInput [matDatepicker]="picker" [min]="todayDate" [(value)]="task.deadline">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -24,20 +24,19 @@
     <tr>
         <mat-form-field>
             <mat-label>Assigned to</mat-label>
-            <mat-select [(ngModel)]="task.usersId">
+            <mat-select [(value)]="task.usersId">
                 <mat-option value="00000000-0000-0000-0000-000000000000">Unassigned</mat-option>
-                <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
-                <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
+                <mat-option value="b4bf4e52-e77a-4f22-9de6-6af24fa3fae1">Existing User</mat-option>
             </mat-select>
           </mat-form-field>
     </tr>
     <tr>
         <mat-form-field>
             <mat-label>Task's status</mat-label>
-            <mat-select [(ngModel)]="task.status">
-              <mat-option value="0">Todo</mat-option>
-              <mat-option value="1">In Progress</mat-option>
-              <mat-option value="2">Done already</mat-option>
+            <mat-select [(value)]="task.inMemoryStatus">
+              <mat-option value='0'>New</mat-option>
+              <mat-option value='1'>InProgress</mat-option>
+              <mat-option value='2'>Completed</mat-option>
             </mat-select>
         </mat-form-field>
     </tr>

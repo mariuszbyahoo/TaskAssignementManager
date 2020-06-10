@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ITaskGroup } from '../groups/ITaskGroup';
-import { TaskGroupService } from '../services/task-group.service';
 import { IUserTask } from '../userTasks/IUserTask';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { TaskGroupService } from '../services/task-group.service';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-specific-group',

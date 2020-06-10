@@ -1,4 +1,4 @@
-import { IUserTask } from "../userTasks/IUserTask";
+import { IUserTask } from "./IUserTask";
 
 export interface ITaskGroup {
     id: string,

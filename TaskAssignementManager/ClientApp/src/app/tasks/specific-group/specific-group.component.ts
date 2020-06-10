@@ -4,6 +4,7 @@ import { ITaskGroup } from '../groups/ITaskGroup';
 import { TaskGroupService } from '../services/task-group.service';
 import { IUserTask } from '../userTasks/IUserTask';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-specific-group',
@@ -15,6 +16,7 @@ export class SpecificGroupComponent implements OnInit {
   name: string
   taskGroup: ITaskGroup
   userTasks: IUserTask[]
+  matcher = new MyErrorStateMatcher();
   constructor(private route: ActivatedRoute, private taskGroupService: TaskGroupService) {}
   tiles: Tile[] 
 
@@ -23,7 +25,7 @@ export class SpecificGroupComponent implements OnInit {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 
-  emailFormControl = new FormControl('', [
+  taskGroupNameFormControl = new FormControl('', [
     Validators.required
   ]);
   
@@ -50,7 +52,12 @@ export class SpecificGroupComponent implements OnInit {
   ngOnDestroy() {
   }
 }
-
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 class Tile {
   text: string;
   cols: number;

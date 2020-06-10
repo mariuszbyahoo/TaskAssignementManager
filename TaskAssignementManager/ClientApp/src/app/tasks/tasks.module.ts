@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {  MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +16,7 @@ import { GroupsComponent } from './groups/groups.component';
   declarations: [GroupsComponent, SpecificGroupComponent],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     MatListModule,
     MatIconModule,

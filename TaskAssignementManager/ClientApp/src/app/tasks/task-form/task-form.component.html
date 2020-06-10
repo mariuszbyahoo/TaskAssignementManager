@@ -2,13 +2,21 @@
     <tr>
         <mat-form-field>
             <mat-label>Task's name</mat-label>
-            <input matInput type="text" [(ngModel)]="task.name">
+            <input matInput type="text" [formControl]="taskNameFormControl" 
+                [errorStateMatcher]="matcher" [(ngModel)]="task.name">
+            <button color="warn" *ngIf="task.name" matSuffix 
+                mat-icon-button aria-label="Clear" (click)="task.name=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="taskNameFormControl.hasError('required')">
+                Task's title is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
     </tr>
     <tr>
         <mat-form-field>
             <mat-label>Task's deadline</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="task.deadline">
+            <input matInput [matDatepicker]="picker" [min]="todayDate"[(ngModel)]="task.deadline">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -17,19 +25,21 @@
         <mat-form-field>
             <mat-label>Assigned to</mat-label>
             <mat-select [(ngModel)]="task.usersId">
-              <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
-              <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
+                <mat-option value="00000000-0000-0000-0000-000000000000">Unassigned</mat-option>
+                <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
+                <mat-option value="tu będzie id gościa">tu będzie imie gościa</mat-option>
             </mat-select>
           </mat-form-field>
     </tr>
     <tr>
         <mat-form-field>
             <mat-label>Task's status</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="task.status">
               <mat-option value="0">Todo</mat-option>
               <mat-option value="1">In Progress</mat-option>
               <mat-option value="2">Done already</mat-option>
             </mat-select>
         </mat-form-field>
     </tr>
+    <button mat-raised-button color="accent" (click)="submit()">Submit task</button>
 </table>

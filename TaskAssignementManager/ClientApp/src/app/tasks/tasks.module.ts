@@ -11,9 +11,10 @@ import {MatInputModule } from '@angular/material/input';
 
 import { SpecificGroupComponent } from './specific-group/specific-group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { TaskFormComponent } from './task-form/task-form.component';
 
 @NgModule({
-  declarations: [GroupsComponent, SpecificGroupComponent],
+  declarations: [GroupsComponent, SpecificGroupComponent, TaskFormComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

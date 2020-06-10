@@ -19,21 +19,29 @@
         <th>User Tasks list</th>
         <th>Specific User Task</th>
     </thead>
-<mat-nav-list>
-    <tr *ngFor="let tile of tiles">
-        <td><a mat-list-item href="">{{ tile.text }}</a></td>
+    <tr>
         <td>
-            <a mat-icon-button color="accent" href="">
-                <mat-icon>border_color</mat-icon>
-            </a>
+            <mat-nav-list>
+                <tr *ngFor="let tile of tiles">
+                    <td><a mat-list-item href="">{{ tile.text }}</a></td>
+                    <td>
+                        <a mat-icon-button color="accent" href="">
+                            <mat-icon>border_color</mat-icon>
+                        </a>
+                    </td>
+                    <td>
+                        <a mat-icon-button color="warn" (click)="ngOnInit()">
+                            <mat-icon>delete_forever</mat-icon>
+                        </a>
+                    </td>
+            </mat-nav-list>
         </td>
         <td>
-            <a mat-icon-button color="warn" (click)="ngOnInit()">
-                <mat-icon>delete_forever</mat-icon>
-            </a>
+            <mat-nav-list>
+                <tr>And here I'll place an Angular reactive form</tr>
+            </mat-nav-list>
         </td>
     </tr>
-  </mat-nav-list>
 </table>
 
 

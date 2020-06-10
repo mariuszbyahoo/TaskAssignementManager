@@ -29,4 +29,8 @@ export class TaskGroupService {
     let tempUrl = `${this.url}/${id}`;
     return this.http.delete(tempUrl);
   }
+
+  patchTaskGroup(taskGroup): Observable<ITaskGroup> {
+    return this.http.patch<ITaskGroup>(this.url, taskGroup);
+  }
 }

@@ -3,12 +3,13 @@
     <input matInput type="text" [formControl]="taskGroupNameFormControl" 
     [errorStateMatcher]="matcher" [(ngModel)]="name">
      
-    <button mat-button *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
+    <button mat-button color="warn" *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
       <mat-icon>close</mat-icon>
     </button>
-    <button mat-button *ngIf="name" matSuffix mat-icon-button aria-label="Save" (click)="TODO_POST_THE_TITLE">
+    <button mat-button color="primary" *ngIf="name" matSuffix mat-icon-button aria-label="Save" (click)='changeTaskGroupsName(name)'>
         <mat-icon>save</mat-icon>
     </button>
+
     <mat-hint>Click save button on the right side to change the group's title, otherwise, it will be left as is.</mat-hint>
     <mat-error *ngIf="taskGroupNameFormControl.hasError('required')">
         TaskGroup's title is <strong>required</strong>

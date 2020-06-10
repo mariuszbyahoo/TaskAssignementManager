@@ -28,11 +28,16 @@ export class SpecificGroupComponent implements OnInit {
   taskGroupNameFormControl = new FormControl('', [
     Validators.required
   ]);
+
+  changeTaskGroupsName(name) {
+    this.taskGroup.name = name;
+    console.log(this.taskGroup);
+    //this.taskGroupService.
+  }
   
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.taskGroupService.getTaskGroup(this.id).subscribe(group => {
-      console.log(group);
       this.taskGroup = group;
       this.name = this.taskGroup.name;
       this.userTasks = new Array<IUserTask>(0);

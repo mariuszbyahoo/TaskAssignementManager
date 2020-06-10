@@ -27,4 +27,13 @@ export class GroupsComponent implements OnInit {
     }),
       err => console.log(`An error occured: ${err}`);
   }
+
+  deleteTaskGroup(id): void {
+    this.taskGroupService.deleteTaskGroup(id).subscribe(g => {
+      console.log(`Attempting to delete: '${g}'`);
+      this.fetchData();
+      console.log(`fetchData invoked`);
+    }),
+    err => console.log(`An error occured: ${err}`);
+  }
 }

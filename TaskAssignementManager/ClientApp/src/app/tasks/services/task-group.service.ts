@@ -17,4 +17,10 @@ export class TaskGroupService {
     console.log('TaskGroupService succesfully ran!');
     return this.http.get<ITaskGroup[]>(this.url);
   }
+
+  deleteTaskGroup(id): Observable<any> {
+    console.log('deleteTaskGroup invoked');
+    let tempUrl = `${this.url}/${id}`;
+    return this.http.delete(tempUrl);
+  }
 }

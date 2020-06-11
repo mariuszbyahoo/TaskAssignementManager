@@ -21,8 +21,6 @@ export class UserTaskService {
 
   // Service message tasks
   sendTask(task: IUserTask) {
-    console.log('Task send from service, below:')
-    console.log(task);
     this.taskSource.next(task);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive } from '@angular/core';
+import { Component, OnInit, Directive, Input } from '@angular/core';
 import { IUserTask } from '../userTasks/IUserTask';
 import { UserTaskService } from '../services/user-task.service';
 import { Subscription } from 'rxjs';
@@ -12,22 +12,16 @@ import { TaskGroupService } from '../services/task-group.service';
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent implements OnInit {
-  group: ITaskGroup;
+  @Input() group: ITaskGroup;
   task : IUserTask ;
   taskSubscription: Subscription;
-  groupSubscription: Subscription;
   todayDate: Date = new Date();
 
-  constructor(private userTaskService : UserTaskService, private taskGroupService: TaskGroupService) { 
+  constructor(private userTaskService : UserTaskService) { 
     this.taskSubscription = userTaskService.taskSelected$.subscribe(t => {
       this.task = t;
       // TODO Zobacz czy zaakceptuje 
       this.task.inMemoryStatus = t.status.toString();
-    })
-    this.groupSubscription = taskGroupService.groupSelected$.subscribe(g => {
-      this.group = g;
-      console.log('group received in task-form.component.ts, check it out below!');
-      console.log(this.group);
     })
   }
 
@@ -49,8 +43,11 @@ export class TaskFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.group) {
+      this.group = { id: '00000000-0000-0000-0000-000000000000', name: '', userTasks : null }
+    }
     this.task = {name : '', deadline : new Date(), 
-    groupId : '00000000-0000-0000-0000-000000000000', status: 0, 
+    groupId : this.group.id, status: 0, 
     inMemoryStatus: '0', usersId : '00000000-0000-0000-0000-000000000000',
     id: '00000000-0000-0000-0000-000000000000'}
   }

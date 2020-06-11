@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ITaskGroup } from '../userTasks/ITaskGroup';
 
 @Injectable({
@@ -11,6 +11,19 @@ export class TaskGroupService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') url: string) {
     this.url = url + 'api/groups';
+  }
+
+  // Observable IUserTask source
+  private groupSource = new Subject<ITaskGroup>();
+
+  // Observable IUserTask streams
+  groupSelected$ = this.groupSource.asObservable();
+
+  // Service message tasks
+  sendGroup(group: ITaskGroup) {
+    this.groupSource.next(group);
+    console.log('group populated in service, check it out below:');
+    console.log(group);
   }
 
   getTaskGroups(): Observable<ITaskGroup[]> {

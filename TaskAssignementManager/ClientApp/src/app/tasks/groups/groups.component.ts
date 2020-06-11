@@ -17,6 +17,11 @@ export class GroupsComponent implements OnInit {
     this.fetchData();
   }
 
+  sendGroup(group){
+    this.taskGroupService.sendGroup(group);
+    console.log('group send from groups component'); 
+  }
+
   fetchData(): void {
     this.taskGroupService.getTaskGroups().subscribe(g => {
       this.groups = g;

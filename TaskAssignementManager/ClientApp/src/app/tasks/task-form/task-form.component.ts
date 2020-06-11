@@ -3,6 +3,8 @@ import { IUserTask } from '../userTasks/IUserTask';
 import { UserTaskService } from '../services/user-task.service';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { TaskGroupService } from '../services/task-group.service';
 
 @Component({
   selector: 'app-task-form',
@@ -10,15 +12,22 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent implements OnInit {
+  group: ITaskGroup;
   task : IUserTask ;
-  subscription: Subscription;
+  taskSubscription: Subscription;
+  groupSubscription: Subscription;
   todayDate: Date = new Date();
 
-  constructor(private userTaskService : UserTaskService) { 
-    this.subscription = userTaskService.taskSelected$.subscribe(t => {
+  constructor(private userTaskService : UserTaskService, private taskGroupService: TaskGroupService) { 
+    this.taskSubscription = userTaskService.taskSelected$.subscribe(t => {
       this.task = t;
       // TODO Zobacz czy zaakceptuje 
       this.task.inMemoryStatus = t.status.toString();
+    })
+    this.groupSubscription = taskGroupService.groupSelected$.subscribe(g => {
+      this.group = g;
+      console.log('group received in task-form.component.ts, check it out below!');
+      console.log(this.group);
     })
   }
 

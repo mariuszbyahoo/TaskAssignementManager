@@ -38,6 +38,10 @@ namespace TaskAssignementManager.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<TaskGroup>> Create([FromBody] TaskGroup entity)
         {
+            if (entity.Id.Equals(Guid.Empty))
+            {
+                entity.Id = Guid.NewGuid();
+            }
             var res = await _taskGroups.AddEntity(entity);
             return Created("groups", res);
         }

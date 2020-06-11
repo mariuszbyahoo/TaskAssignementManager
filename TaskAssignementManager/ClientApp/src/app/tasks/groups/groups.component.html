@@ -13,7 +13,7 @@
             </th>
         </tr>
         <tr *ngFor="let group of groups">
-            <td><a mat-list-item href="/taskGroup/{{group.id}}">{{ group.name }}</a></td>
+            <td><a mat-list-item href="/taskGroup/{{group.id}}" (click)="sendGroup(group)">{{ group.name }}</a></td>
             <td><h4>{{ group.userTasks.length }}</h4></td>
             <td>
                 <a mat-icon-button color="accent" href="/taskGroup/{{group.id}}">

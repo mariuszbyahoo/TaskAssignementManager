@@ -19,7 +19,7 @@ export class UserTaskService {
   // Observable IUserTask streams
   taskSelected$ = this.taskSource.asObservable();
 
-  // Service message commands
+  // Service message tasks
   sendTask(task: IUserTask) {
     this.taskSource.next(task);
   }
@@ -27,5 +27,9 @@ export class UserTaskService {
   getUserTask(id) {
     let url = `${this.url}/${id}`;
     return this.http.get<IUserTask>(url);
+  }
+
+  postUserTask(task) {
+    return this.http.post<IUserTask>(this.url, task);
   }
 }

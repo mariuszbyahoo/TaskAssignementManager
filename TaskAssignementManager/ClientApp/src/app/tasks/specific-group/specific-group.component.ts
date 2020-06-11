@@ -33,7 +33,7 @@ export class SpecificGroupComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/groups']);
+    this.router.navigate(['/']);
   }
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

@@ -30,7 +30,6 @@ export class UserTaskService {
   }
 
   delete(id) {
-    console.log(`Attempting to delete a task number: ${id}`);
     let url = `${this.url}/${id}`;
     return this.http.delete(url);
   }

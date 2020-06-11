@@ -64,7 +64,7 @@ export class SpecificGroupComponent implements OnInit {
     })
   }
   
-  ngOnInit() {
+  public ngOnInit() {
     this.id = this.route.snapshot.queryParams['id'];
     if(this.id){
       this.taskGroupService.getTaskGroup(this.id).subscribe(group => {

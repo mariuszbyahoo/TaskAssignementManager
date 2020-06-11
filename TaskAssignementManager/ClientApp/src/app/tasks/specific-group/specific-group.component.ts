@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -19,10 +19,12 @@ export class SpecificGroupComponent implements OnInit {
   name: string
   taskGroup: ITaskGroup
   userTasks: IUserTask[]
+  tiles: Tile[] 
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
+    private router: Router, 
     private taskGroupService: TaskGroupService,
     private userTaskService: UserTaskService) {
     userTaskService.taskSelected$.subscribe(task => {
@@ -30,7 +32,9 @@ export class SpecificGroupComponent implements OnInit {
     });
   }
 
-  tiles: Tile[] 
+  back() {
+    this.router.navigate(['/groups']);
+  }
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;

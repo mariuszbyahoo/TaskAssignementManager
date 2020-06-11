@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { ITaskGroup } from '../userTasks/ITaskGroup';
@@ -6,11 +6,17 @@ import { ITaskGroup } from '../userTasks/ITaskGroup';
 @Injectable({
   providedIn: 'root'
 })
-export class TaskGroupService {
+export class TaskGroupService implements OnInit {
   private url: string;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') url: string) {
     this.url = url + 'api/groups';
+  }
+  ngOnInit(): void {
+    console.log('Group selected in group service: ');
+    this.groupSelected$.subscribe(g => {
+      console.log(g);
+    })
   }
 
   // Observable IUserTask source
@@ -22,8 +28,10 @@ export class TaskGroupService {
   // Service message tasks
   sendGroup(group: ITaskGroup) {
     this.groupSource.next(group);
-    console.log('group populated in service, check it out below:');
-    console.log(group);
+    this.groupSource.subscribe(g=> {
+      console.log('group send from service, here again: ');
+      console.log(g);
+    })
   }
 
   getTaskGroups(): Observable<ITaskGroup[]> {

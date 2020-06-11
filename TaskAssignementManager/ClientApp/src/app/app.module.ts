@@ -39,9 +39,9 @@ import { SpecificGroupComponent } from './tasks/specific-group/specific-group.co
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'groups', component: GroupsComponent},
-      { path: 'taskGroup', component: SpecificGroupComponent },
-      { path: 'taskGroup/:id', component: SpecificGroupComponent }
+      { path: 'groups', component: GroupsComponent, pathMatch: 'full' },
+      { path: 'groups/new', component: SpecificGroupComponent, pathMatch: 'full' },
+      { path: 'groups/edit', component: SpecificGroupComponent, pathMatch: 'full' }
     ]),
     BrowserAnimationsModule
   ],

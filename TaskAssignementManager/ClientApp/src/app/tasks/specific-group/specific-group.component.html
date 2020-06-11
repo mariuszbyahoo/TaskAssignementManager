@@ -14,28 +14,29 @@
         TaskGroup's title is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-<table>
-    <thead>
-        <th style="width: 50%;">User Tasks list</th>
-        <th style="width: 50%;">Specific User Task</th>
-    </thead>
-    <tr>
-        <td id="leftCell">
-            <mat-nav-list>
-                <tr *ngIf="tiles.length === 0">Add new UserTasks to populate this table</tr>
-                <tr *ngFor="let tile of tiles">
-                    <td><a mat-list-item (click)="sendTask(tile)">{{ tile.text }}</a></td>
-                    <td>
-                        <a mat-icon-button color="warn" (click)="ngOnInit()">
-                            <mat-icon>delete_forever</mat-icon>
-                        </a>
-                    </td>
-            </mat-nav-list>
-        </td>
-        <td id="rightCell">
-            <app-task-form></app-task-form>
-        </td>
-    </tr>
-</table>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <div>
+      <h4>User Tasks list</h4>
+    </div>
+    <div class="container">
+      <div>
+        <mat-nav-list>
+          <p *ngIf="tiles.length === 0">Add new UserTasks to populate this table</p>
+          <div class="row" id="tile" *ngFor="let tile of tiles">
+            <div class="titleDiv" class="col-sm-9"><a class="titleAnchor"  mat-list-item (click)="sendTask(tile)">{{ tile.text }}</a></div>
+            <div class="col-sm-3"><a mat-icon-button color="warn" (click)="ngOnInit()"><mat-icon>delete_forever</mat-icon></a></div>
+          </div>
+        </mat-nav-list>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+      <h4>Specific User Task</h4>
+      <app-task-form></app-task-form>
+  </div>
+</div>
 
 

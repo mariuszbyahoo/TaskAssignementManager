@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, Input } from '@angular/core';
+import { Component, OnInit, Directive, Input, Output, EventEmitter } from '@angular/core';
 import { IUserTask } from '../userTasks/IUserTask';
 import { UserTaskService } from '../services/user-task.service';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,7 @@ import { SpecificGroupComponent } from '../specific-group/specific-group.compone
 })
 export class TaskFormComponent implements OnInit {
   @Input() group: ITaskGroup;
+  @Output() newTaskPosted = new EventEmitter();
   task: IUserTask;
   taskSubscription: Subscription;
   todayDate: Date = new Date();
@@ -44,14 +45,13 @@ export class TaskFormComponent implements OnInit {
   submit() {
     this.userTaskService.postUserTask(this.task).subscribe(res => {
     }, err => console.error(err),
-      () => console.log('find a way to call parents function here, reload the component'));
+      () => this.newTaskPosted.next(true));
   }
 
   ngOnInit() {
     
     if (!this.group) {
       let paramId = this.route.snapshot.queryParams['id'];
-      console.log(paramId);
       this.group = { id: paramId, name: '', userTasks: null }
     }
     this.task = {

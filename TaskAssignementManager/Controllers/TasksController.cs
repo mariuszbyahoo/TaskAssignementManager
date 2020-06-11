@@ -48,6 +48,9 @@ namespace TaskAssignementManager.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<UserTask>> Create([FromBody] UserTask entity)
         {
+            if (entity.GroupId.Equals(Guid.Empty)) {
+                return BadRequest("A task cannot be unassigned to any group");
+            }
             await _userTasks.AddEntity(entity);
             return Created("tasks", entity);
         }

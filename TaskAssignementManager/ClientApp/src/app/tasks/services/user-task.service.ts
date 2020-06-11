@@ -29,6 +29,12 @@ export class UserTaskService {
     return this.http.get<IUserTask>(url);
   }
 
+  delete(id) {
+    console.log(`Attempting to delete a task number: ${id}`);
+    let url = `${this.url}/${id}`;
+    return this.http.delete(url);
+  }
+
   postUserTask(task) {
     return this.http.post<IUserTask>(this.url, task);
   }

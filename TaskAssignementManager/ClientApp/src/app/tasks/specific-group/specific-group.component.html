@@ -31,7 +31,7 @@
           <p *ngIf="tiles.length === 0">Add new UserTasks to populate this table</p>
           <div class="row" id="tile" *ngFor="let tile of tiles">
             <div class="titleDiv" class="col-sm-9"><a class="titleAnchor"  mat-list-item (click)="sendTask(tile)">{{ tile.text }}</a></div>
-            <div class="col-sm-3"><a mat-icon-button color="warn" (click)="ngOnInit()"><mat-icon>delete_forever</mat-icon></a></div>
+            <div class="col-sm-3"><a mat-icon-button color="warn" (click)="delete(tile.taskId)"><mat-icon>delete_forever</mat-icon></a></div>
           </div>
         </mat-nav-list>
       </div>

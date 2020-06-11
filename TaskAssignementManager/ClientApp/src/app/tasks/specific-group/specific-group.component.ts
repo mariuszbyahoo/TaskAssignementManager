@@ -32,6 +32,12 @@ export class SpecificGroupComponent implements OnInit {
     });
   }
 
+  delete(id) {
+    this.userTaskService.delete(id).subscribe(res => {
+    }, err => console.error(err),
+    () => this.ngOnInit());
+  }
+
   back() {
     this.router.navigate(['/']);
   }

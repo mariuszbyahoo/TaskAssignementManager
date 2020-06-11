@@ -1,9 +1,8 @@
-<table class="userTaskForm">
-    <tr>
+<form (ngSubmit)="submit(userTaskFrom)" #userTaskFrom="ngForm">
         <mat-form-field>
             <mat-label>Task's name</mat-label>
-            <input matInput type="text" [formControl]="taskNameFormControl" 
-                [errorStateMatcher]="matcher" [(ngModel)]="task.name">
+            <input matInput id="name" [(ngModel)]="task.name" name="name" 
+                [errorStateMatcher]="matcher" required>
             <button color="warn" *ngIf="task.name" matSuffix 
                 mat-icon-button aria-label="Clear" (click)="task.name=''">
                 <mat-icon>close</mat-icon>
@@ -12,35 +11,37 @@
                 Task's title is <strong>required</strong>
             </mat-error>
         </mat-form-field>
-    </tr>
-    <tr>
         <mat-form-field>
             <mat-label>Task's deadline</mat-label>
-            <input matInput [matDatepicker]="picker" [min]="todayDate" [(ngModel)]="task.deadline">
+            <input matInput [matDatepicker]="picker" [min]="todayDate" 
+                [(ngModel)]="task.deadline" name="deadline"
+                id="deadline" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-    </tr>
-    <tr>
         <mat-form-field>
             <mat-label>Assigned to</mat-label>
-            <mat-select [(ngModel)]="task.usersId">
+            <mat-select id="usersId" 
+                required [(ngModel)]="task.usersId" name="usersId">
                 <mat-option value="00000000-0000-0000-0000-000000000000">Unassigned</mat-option>
                 <mat-option value="b4bf4e52-e77a-4f22-9de6-6af24fa3fae1">Existing User</mat-option>
             </mat-select>
           </mat-form-field>
-    </tr>
-    <tr>
         <mat-form-field>
             <mat-label>Task's status</mat-label>
-            <mat-select [(ngModel)]="task.inMemoryStatus">
+            <mat-select id="inMemoryStatus" 
+                required [(ngModel)]="task.inMemoryStatus" name="inMemoryStatus">
               <mat-option value='0'>New</mat-option>
               <mat-option value='1'>InProgress</mat-option>
               <mat-option value='2'>Completed</mat-option>
             </mat-select>
         </mat-form-field>
-    </tr>
-    <button mat-icon-button color="accent" (click)="submit()">
-        <mat-icon>check</mat-icon>
-    </button>
-</table>
+    <div class="row">
+        <button mat-icon-button color="primary" type="submit">
+            <mat-icon>check</mat-icon>
+        </button>
+        <button mat-raised-button color="accent" (click)="refresh()">
+            refresh
+        </button>
+    </div>
+</form>

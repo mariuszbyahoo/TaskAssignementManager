@@ -35,6 +35,10 @@ export class UserTaskService {
     return this.http.delete(url);
   }
 
+  patchUserTask(task){
+    return this.http.patch<IUserTask>(this.url, task);
+  }
+
   postUserTask(task) {
     return this.http.post<IUserTask>(this.url, task);
   }

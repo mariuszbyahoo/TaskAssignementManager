@@ -32,7 +32,10 @@ namespace TaskAssignementManager.Web.Controllers
         [Route("{Id}")]
         public ActionResult<TaskGroup> Get(Guid Id)
         {
-            return Ok(_taskGroups.GetEntity(Id));
+            var res = _taskGroups.GetEntity(Id);
+            if (res == null)
+                return NotFound();
+            return Ok();
         }
 
         [HttpPost]

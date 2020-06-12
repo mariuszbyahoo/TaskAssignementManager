@@ -53,6 +53,8 @@ namespace TaskAssignementManager.Data
         public TaskGroup GetEntity(Guid entityId)
         {
             var res = Ctx.TaskGroups.Where(g => g.Id.Equals(entityId)).FirstOrDefault();
+            if (res==null)
+                return res;
             var allTasks = _tasks.GetEntites().Result;
             var tasks = allTasks.Where(t => t.GroupId.Equals(res.Id)).ToArray();
             for (int i = 0; i < tasks.Count(); i++)

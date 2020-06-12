@@ -1,3 +1,4 @@
+<h4>Task {{ task.name }}</h4>
 <form (ngSubmit)="submit(userTaskFrom)" #userTaskFrom="ngForm">
         <mat-form-field>
             <mat-label>Task's name</mat-label>
@@ -37,11 +38,11 @@
             </mat-select>
         </mat-form-field>
     <div class="row">
-        <button mat-icon-button color="primary" type="submit">
+        <button mat-button color="primary" type="submit">
             <mat-icon>check</mat-icon>
         </button>
-        <button mat-raised-button color="accent" (click)="refresh()">
-            refresh
-        </button>
+        <a mat-icon-button color="warn" (click)="refresh()">
+            <mat-icon>add_outlined</mat-icon>
+        </a>
     </div>
 </form>

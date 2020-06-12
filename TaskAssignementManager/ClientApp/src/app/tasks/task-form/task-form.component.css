@@ -1,6 +1,12 @@
 :host {
     width: 100%;
 }
+h4 {
+    display: inline-block;
+    white-space: nowrap;      /*keep text on one line */
+    overflow: hidden;         /*prevent text from being shown outside the border */
+    width: 100%;
+}
 table.userTaskForm {
     width: 100%;
 }

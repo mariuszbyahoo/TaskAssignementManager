@@ -23,6 +23,8 @@ export class UserTaskService {
   taskArr$ = this.tasksArrSource.asObservable();
   sendTasksArr(arr: IUserTask[]){
     this.tasksArrSource.next(arr);
+    console.log('services SEND method invoked:');
+    console.log(arr);
   }
 
   getUserTask(id) {

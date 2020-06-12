@@ -39,10 +39,16 @@ export class TaskFormComponent implements OnInit {
     this.tasksArrSubscription = userTaskService.taskArr$.subscribe(arr =>{
       this.userTasks = arr;
     })
+    
   }
 
   refresh(){
-    this.task = this.freshTask;
+    this.task = {
+      name: '', deadline: this.todayDate,
+      groupId: this.group.id, status: 0,
+      inMemoryStatus: '0', usersId: this.emptyGuid,
+      id: this.utilsService.newGuid()
+    };
   }
 
   convertString(value) {
@@ -64,32 +70,52 @@ export class TaskFormComponent implements OnInit {
       /* Tutaj dodawaj te taski do tablicy, */
       if (lookup){
         this.task.status = this.convertString(this.task.inMemoryStatus);
-        console.log('Patched: ');
-        console.log(this.task);
-        this.userTaskService.patchUserTask(this.task).subscribe(res => {
-        }, err => {
-          console.error(err)
-        },
-          () => {
-            this.reloadList.next(true)
-          });
+        let taskIndex = this.userTasks.findIndex(t => t.id === this.task.id);
+        this.userTasks.forEach(t => {
+          if(t.id === this.task.id){
+            console.log('task found in array:');
+            console.log(t);
+            console.log('task from form:');
+            console.log(this.task);
+            t.name = this.task.name;
+            t.deadline = this.task.deadline;
+            t.inMemoryStatus = this.task.inMemoryStatus;
+            t.status = this.task.status;
+            t.usersId = this.task.usersId;
+          }
+        });
+        // console.log('Patched: ');
+        // console.log(this.task);
+        // this.userTaskService.patchUserTask(this.task).subscribe(res => {
+        // }, err => {
+        //   console.error(err)
+        // },
+        //   () => {
+        //     this.reloadList.next(true)
+        //   });
       }
       else {
-        this.post();
+        this.add();
       }
+      console.log('tablica po operacji:');
+      this.userTasks.forEach(t => console.log(t));
+      console.log('Koniec iteracji');
+      this.refresh();
+      this.userTaskService.sendTasksArr(this.userTasks);
     }
   }
 
-  post(){
+  add(){
     this.task.status = this.convertString(this.task.inMemoryStatus);
-        this.userTaskService.postUserTask(this.task).subscribe(res => {
-          this.userTasks.push(res);
-          console.log('tempTasksArray length:');
-          console.log(this.userTasks.length);
-        }, err => console.error(err),
-          () => {
-            this.reloadList.next(true)
-          });
+    this.userTasks.push(this.task);
+    // this.userTaskService.postUserTask(this.task).subscribe(res => {
+    //   this.userTasks.push(res);
+    //   console.log('tempTasksArray length:');
+    //   console.log(this.userTasks.length);
+    // }, err => console.error(err),
+    //   () => {
+    //     this.reloadList.next(true)
+    //   });
   }
 
   /* ta funkcja jest do sprawdzenia, czy w istniejących taskach już jest taki task */

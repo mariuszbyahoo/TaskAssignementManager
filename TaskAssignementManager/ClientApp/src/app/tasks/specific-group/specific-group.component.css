@@ -17,6 +17,12 @@ table {
 mat-form-field#titleForm {
     width: 100%; 
     text-align: center;
+    margin-top: 10px;
+    margin-bottom:20px;
+}
+
+button#actionButton {
+    margin: 5px;
 }
 
 .mat-nav-list .mat-list-item {

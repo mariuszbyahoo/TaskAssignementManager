@@ -47,10 +47,22 @@ export class SpecificGroupComponent implements OnInit {
     })
   }
 
-  delete(id) {
-    this.userTaskService.delete(id).subscribe(res => {
-    }, err => console.error(err),
-    () => this.refresh());
+  delete(tile) {
+    let initialLength = this.userTasks.length;
+    console.log(this.userTasks);
+    console.log(this.tiles);
+    for(let i = 0 ; i < this.userTasks.length; i ++){
+      if(this.userTasks[i].id === tile.taskId){
+        this.userTasks.splice(i, 1);
+        console.log('deleted from userTasks array');
+        // line 59, causes problem?
+      }
+    }
+    // refresh() loop depends on userTasks length changed above, so
+    if(initialLength < 2){
+      this.tiles = [];
+    }
+    this.refresh();
   }
 
   taskGroupNameFormControl = new FormControl('', [
@@ -95,6 +107,8 @@ export class SpecificGroupComponent implements OnInit {
       this.userTasks.forEach(el => {
         this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
       });
+      console.log('tiles length');
+      console.log(this.tiles.length);
     }
   }
 

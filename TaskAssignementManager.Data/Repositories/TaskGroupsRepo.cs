@@ -29,6 +29,8 @@ namespace TaskAssignementManager.Data
 
         public async Task DeleteEntity(TaskGroup entity)
         {
+            var matchingTasks = Ctx.UserTasks.Where(t => t.GroupId.Equals(entity.Id)).ToArray();
+            Ctx.UserTasks.RemoveRange(matchingTasks);
             Ctx.TaskGroups.Remove(entity);
             await Ctx.SaveChangesAsync();
         }

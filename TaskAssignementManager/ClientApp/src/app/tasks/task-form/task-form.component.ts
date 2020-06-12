@@ -13,9 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TaskFormComponent implements OnInit {
   @Input() group: ITaskGroup;
+  @Input() userTasks: IUserTask[];
   @Output() reloadList = new EventEmitter();
   // dodaj może tablicę tasków i tu przechowuj je, celem weryfikacji?
-  tempTasksArray: IUserTask[];
   task: IUserTask;
   taskSubscription: Subscription;
   todayDate: Date = new Date();
@@ -55,10 +55,8 @@ export class TaskFormComponent implements OnInit {
 
   submit(form : NgForm) {
     if(form.valid){
-      if (this.task.id === this.emptyGuid)/* Ten warunek trzeba zmienić na inny, tego nie widzi. */ {
-        this.post();
-      }
-      else {
+      let lookup = this.isTaskExisting();
+      if (lookup)/* Ten warunek trzeba zmienić na inny, tego nie widzi. */ {
         this.task.status = this.convertString(this.task.inMemoryStatus);
         console.log('Patched: ');
         console.log(this.task);
@@ -66,9 +64,36 @@ export class TaskFormComponent implements OnInit {
         }, err => {
           console.error(err)
         },
-          () => this.reloadList.next(true));
+          () => {
+            this.reloadList.next(true)
+          });
+      }
+      else {
+        this.post();
       }
     }
+  }
+
+  post(){
+    this.task.status = this.convertString(this.task.inMemoryStatus);
+        this.userTaskService.postUserTask(this.task).subscribe(res => {
+          this.userTasks.push(res);
+          console.log('tempTasksArray length:');
+          console.log(this.userTasks.length);
+        }, err => console.error(err),
+          () => {
+            this.reloadList.next(true)
+          });
+  }
+
+  /* ta funkcja jest do sprawdzenia, czy w istniejących taskach już jest taki task */
+  isTaskExisting(): boolean {
+    for(let i = 0 ; i < this.userTasks.length; i ++){
+      if(this.task.id === this.userTasks[i].id){
+        return true;
+      }
+    }
+    return false;
   }
 
   ngOnInit() {
@@ -83,23 +108,14 @@ export class TaskFormComponent implements OnInit {
       id: this.emptyGuid
     }
     this.userTaskService.getTasksFromGroup(this.group.id).subscribe(arr => {
-      this.tempTasksArray = arr;
+      this.userTasks = arr;
     }, err => console.error(err),
     () => { // Jak to się zachowa w przypadku nowej grupy?
       console.log('tempTasksArray:');
-      console.log(this.tempTasksArray);
+      console.log(this.userTasks);
     });
     this.refresh();
 
-  }
-
-  post(){
-    this.task.status = this.convertString(this.task.inMemoryStatus);
-        console.log('Posted: ');
-        console.log(this.task);
-        this.userTaskService.postUserTask(this.task).subscribe(res => {
-        }, err => console.error(err),
-          () => this.reloadList.next(true));
   }
 }
 

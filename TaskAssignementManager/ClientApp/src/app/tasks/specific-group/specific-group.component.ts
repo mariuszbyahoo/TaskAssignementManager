@@ -81,9 +81,6 @@ export class SpecificGroupComponent implements OnInit {
     this.tiles = [
     ]
   }
-
-  ngOnDestroy() {
-  }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

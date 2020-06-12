@@ -21,7 +21,8 @@ export class SpecificGroupComponent implements OnInit {
   name: string
   taskGroup: ITaskGroup
   userTasks: IUserTask[];
-  tiles: Tile[] 
+  tiles: Tile[];
+  counter: number = 0; // pokazuje, który raz uruchomiona została metoda ngOnInit
   userTasksSubscription : Subscription;
   matcher = new MyErrorStateMatcher();
 
@@ -42,14 +43,14 @@ export class SpecificGroupComponent implements OnInit {
     });
     this.userTasksSubscription = userTaskService.taskArr$.subscribe(arr => {
       this.userTasks = arr;
-      this.ngOnInit();
+      this.refresh();
     })
   }
 
   delete(id) {
     this.userTaskService.delete(id).subscribe(res => {
     }, err => console.error(err),
-    () => this.ngOnInit());
+    () => this.refresh());
   }
 
   taskGroupNameFormControl = new FormControl('', [
@@ -75,40 +76,25 @@ export class SpecificGroupComponent implements OnInit {
       this.taskGroup = {id : this.utilsService.newGuid(), name: '', userTasks: this.userTasks}
       this.id = this.taskGroup.id;
     }
-    if(this.id){
-      this.taskGroupService.getTaskGroup(this.id).subscribe(group => {
-        this.taskGroup = group;
-        this.name = this.taskGroup.name;
-        for (let i = 0; i < this.taskGroup.userTasks.length; i++){
-          let task = this.taskGroup.userTasks[i];
-          this.userTasks.push(task);
-          this.userTasks.forEach(t => console.log(t));
-          this.tiles = new Array<Tile>(0);
-          this.userTasks.forEach(el => {
-            this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
-          });
-          this.tiles.forEach(t => console.log(t))
-        }
-        console.log('existing group selected');
-      }, err => {
-        console.error(err);
-        this.taskGroup = {id: this.utilsService.newGuid(), name : '', userTasks: this.userTasks};
-        this.name = this.taskGroup.name;
-        for (let i = 0; i < this.taskGroup.userTasks.length; i++){
-          //let task = this.taskGroup.userTasks[i];
-          this.userTasks.forEach(t => console.log(t));
-          this.tiles = new Array<Tile>(0);
-          this.userTasks.forEach(el => {
-            this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
-          });
-          this.tiles.forEach(t => console.log(t))
-        }
-      })
-    }
-    else if(!this.taskGroup) {
-      this.taskGroup = { id: this.utilsService.newGuid(), name: '', userTasks: this.userTasks}
-      console.log('new group created');
-      console.log(this.taskGroup.id);
+    this.taskGroupService.getTaskGroup(this.id).subscribe(group => {
+      this.taskGroup = group;
+      this.name = this.taskGroup.name;
+      this.userTasks = this.taskGroup.userTasks;
+     this.populateTiles();
+    }, err => {
+      console.error(err);
+      this.taskGroup = {id: this.utilsService.newGuid(), name : '', userTasks: this.userTasks};
+      this.name = this.taskGroup.name;
+      this.populateTiles();
+    })
+  }
+
+  refresh(){
+    for (let i = 0; i < this.userTasks.length; i++){
+      this.tiles = new Array<Tile>(0);
+      this.userTasks.forEach(el => {
+        this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
+      });
     }
   }
 
@@ -120,10 +106,16 @@ export class SpecificGroupComponent implements OnInit {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
-  
+
+  populateTiles(){
+    for (let i = 0; i < this.taskGroup.userTasks.length; i++){
+      this.tiles = new Array<Tile>(0);
+      this.userTasks.forEach(el => {
+        this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
+      });
+    }
+  }
 }
-
-
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;

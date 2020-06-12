@@ -35,7 +35,7 @@ namespace TaskAssignementManager.Web.Controllers
             var res = _taskGroups.GetEntity(Id);
             if (res == null)
                 return NotFound();
-            return Ok();
+            return Ok(res);
         }
 
         [HttpPost]

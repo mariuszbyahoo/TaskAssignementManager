@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IUserTask } from '../userTasks/IUserTask';
 import { UserTaskService } from '../services/user-task.service';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,6 @@ export class TaskFormComponent implements OnInit {
   @Input() group: ITaskGroup;
   userTasks: IUserTask[];
   @Output() reloadList = new EventEmitter();
-  // dodaj może tablicę tasków i tu przechowuj je, celem weryfikacji?
   task: IUserTask;
   taskSubscription: Subscription;
   tasksArrSubscription: Subscription;
@@ -39,7 +38,6 @@ export class TaskFormComponent implements OnInit {
     this.tasksArrSubscription = userTaskService.taskArr$.subscribe(arr =>{
       this.userTasks = arr;
     })
-    
   }
 
   refresh(){
@@ -49,10 +47,6 @@ export class TaskFormComponent implements OnInit {
       inMemoryStatus: '0', usersId: this.emptyGuid,
       id: this.utilsService.newGuid()
     };
-  }
-
-  convertString(value) {
-    return parseInt(value);
   }
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -69,7 +63,7 @@ export class TaskFormComponent implements OnInit {
       let lookup = this.isTaskExisting();
       /* Tutaj dodawaj te taski do tablicy, */
       if (lookup){
-        this.task.status = this.convertString(this.task.inMemoryStatus);
+        this.task.status = parseInt(this.task.inMemoryStatus);
         let taskIndex = this.userTasks.findIndex(t => t.id === this.task.id);
         this.userTasks.forEach(t => {
           if(t.id === this.task.id){
@@ -84,38 +78,20 @@ export class TaskFormComponent implements OnInit {
             t.usersId = this.task.usersId;
           }
         });
-        // console.log('Patched: ');
-        // console.log(this.task);
-        // this.userTaskService.patchUserTask(this.task).subscribe(res => {
-        // }, err => {
-        //   console.error(err)
-        // },
-        //   () => {
-        //     this.reloadList.next(true)
-        //   });
       }
       else {
         this.add();
       }
-      console.log('tablica po operacji:');
-      this.userTasks.forEach(t => console.log(t));
-      console.log('Koniec iteracji');
       this.refresh();
       this.userTaskService.sendTasksArr(this.userTasks);
     }
   }
 
   add(){
-    this.task.status = this.convertString(this.task.inMemoryStatus);
+    this.task.status = parseInt(this.task.inMemoryStatus);
     this.userTasks.push(this.task);
-    // this.userTaskService.postUserTask(this.task).subscribe(res => {
-    //   this.userTasks.push(res);
-    //   console.log('tempTasksArray length:');
-    //   console.log(this.userTasks.length);
-    // }, err => console.error(err),
-    //   () => {
-    //     this.reloadList.next(true)
-    //   });
+    console.log('dodano do tablicy:')
+    console.log(this.task);
   }
 
   /* ta funkcja jest do sprawdzenia, czy w istniejących taskach już jest taki task */
@@ -143,11 +119,9 @@ export class TaskFormComponent implements OnInit {
       this.userTaskService.getTasksFromGroup(this.group.id).subscribe(arr => {
         this.userTasks = arr;
       }, err => {
-        console.log('An error occured while acquiring tasks in taskform component');
         console.error(err);
       },
       () => { // Jak to się zachowa w przypadku nowej grupy?
-        console.log('tempTasksArray:');
         console.log(this.userTasks);
       });
       this.refresh();

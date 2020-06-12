@@ -7,6 +7,7 @@ import { IUserTask } from '../userTasks/IUserTask';
 import { ITaskGroup } from '../userTasks/ITaskGroup';
 import { TaskGroupService } from '../services/task-group.service';
 import { UserTaskService } from '../services/user-task.service';
+import { UtilsService } from '../services/utils-service';
 
 @Component({
   selector: 'app-specific-group',
@@ -26,7 +27,8 @@ export class SpecificGroupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private taskGroupService: TaskGroupService,
-    private userTaskService: UserTaskService) {
+    private userTaskService: UserTaskService,
+    private utilsService: UtilsService) {
     userTaskService.taskSelected$.subscribe(task => {
       this.userTasks.push(task);
     });
@@ -36,15 +38,6 @@ export class SpecificGroupComponent implements OnInit {
     this.userTaskService.delete(id).subscribe(res => {
     }, err => console.error(err),
     () => this.ngOnInit());
-  }
-
-  back() {
-    this.router.navigate(['/']);
-  }
-
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 
   taskGroupNameFormControl = new FormControl('', [
@@ -76,12 +69,33 @@ export class SpecificGroupComponent implements OnInit {
           this.userTasks.push(task);
           this.tiles.push(new Tile(task.name, 1, 1, 'lightgray', task.id));
         }
+        console.log('existing group selected');
+      }, err => {
+        console.log('an error occured while acquiring the taskGroup');
+        console.error(err)
       })
+    }
+    else{
+      this.taskGroup = { id: this.utilsService.newGuid(), name: '', userTasks: new Array<IUserTask>(0) }
+      console.log('new group created');
+      console.log(this.taskGroup.id);
     }
     this.tiles = [
     ]
   }
+
+  back() {
+    this.router.navigate(['/']);
+  }
+
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+  
 }
+
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;

@@ -13,15 +13,16 @@ export class UserTaskService {
     this.url = `${url}api/tasks`;
   }
 
-  // Observable IUserTask source
   private taskSource = new Subject<IUserTask>();
-
-  // Observable IUserTask streams
   taskSelected$ = this.taskSource.asObservable();
-
-  // Service message tasks
   sendTask(task: IUserTask) {
     this.taskSource.next(task);
+  }
+
+  private tasksArrSource = new Subject<IUserTask[]>();
+  taskArr$ = this.tasksArrSource.asObservable();
+  sendTasksArr(arr: IUserTask[]){
+    this.tasksArrSource.next(arr);
   }
 
   getUserTask(id) {

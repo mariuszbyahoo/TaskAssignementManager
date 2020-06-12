@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ITaskGroup } from '../userTasks/ITaskGroup';
 import { ActivatedRoute } from '@angular/router';
+import { UtilsService } from '../services/utils-service';
 
 @Component({
   selector: 'app-task-form',
@@ -13,11 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TaskFormComponent implements OnInit {
   @Input() group: ITaskGroup;
-  @Input() userTasks: IUserTask[];
+  userTasks: IUserTask[];
   @Output() reloadList = new EventEmitter();
   // dodaj może tablicę tasków i tu przechowuj je, celem weryfikacji?
   task: IUserTask;
   taskSubscription: Subscription;
+  tasksArrSubscription: Subscription;
   todayDate: Date = new Date();
   name = '';
   emptyGuid = '00000000-0000-0000-0000-000000000000';
@@ -29,11 +31,14 @@ export class TaskFormComponent implements OnInit {
   }
 
   constructor(private userTaskService: UserTaskService, 
-    private route : ActivatedRoute) {
+    private route : ActivatedRoute, private utilsService: UtilsService) {
     this.taskSubscription = userTaskService.taskSelected$.subscribe(t => {
       this.task = t;
       this.task.inMemoryStatus = t.status.toString();
     });
+    this.tasksArrSubscription = userTaskService.taskArr$.subscribe(arr =>{
+      this.userTasks = arr;
+    })
   }
 
   refresh(){
@@ -56,7 +61,8 @@ export class TaskFormComponent implements OnInit {
   submit(form : NgForm) {
     if(form.valid){
       let lookup = this.isTaskExisting();
-      if (lookup)/* Ten warunek trzeba zmienić na inny, tego nie widzi. */ {
+      /* Tutaj dodawaj te taski do tablicy, */
+      if (lookup){
         this.task.status = this.convertString(this.task.inMemoryStatus);
         console.log('Patched: ');
         console.log(this.task);
@@ -107,14 +113,26 @@ export class TaskFormComponent implements OnInit {
       inMemoryStatus: '0', usersId: this.emptyGuid,
       id: this.emptyGuid
     }
-    this.userTaskService.getTasksFromGroup(this.group.id).subscribe(arr => {
-      this.userTasks = arr;
-    }, err => console.error(err),
-    () => { // Jak to się zachowa w przypadku nowej grupy?
-      console.log('tempTasksArray:');
-      console.log(this.userTasks);
-    });
-    this.refresh();
+    if(this.group.id){
+      this.userTaskService.getTasksFromGroup(this.group.id).subscribe(arr => {
+        this.userTasks = arr;
+      }, err => {
+        console.log('An error occured while acquiring tasks in taskform component');
+        console.error(err);
+      },
+      () => { // Jak to się zachowa w przypadku nowej grupy?
+        console.log('tempTasksArray:');
+        console.log(this.userTasks);
+      });
+      this.refresh();
+    }
+    else{
+      console.log('looks like youre attempting to create a new task!');
+      this.task = { id: this.utilsService.newGuid(), name: '', deadline: new Date(), status: 0, 
+      inMemoryStatus: '0', usersId: this.emptyGuid, groupId: this.group.id }
+      console.log('task Id assigned');
+      console.log(this.task.id);
+    }
 
   }
 }

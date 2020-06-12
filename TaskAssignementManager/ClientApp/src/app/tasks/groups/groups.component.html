@@ -18,7 +18,7 @@
                     {{ group.name }}
                 </a>
             </td>
-            <td><h4>{{ group.userTasks.length }}</h4></td>
+            <td><h4>{{ group.userTasks ? group.userTasks.length : 0 }}</h4></td>
             <td>
                 <a mat-icon-button color="accent" [routerLink]="['/groups/edit']" 
                         [queryParams]="{id: group.id}">

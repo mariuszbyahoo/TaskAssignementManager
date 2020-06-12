@@ -20,9 +20,6 @@ export class GroupsComponent implements OnInit {
   fetchData(): void {
     this.taskGroupService.getTaskGroups().subscribe(g => {
       this.groups = g;
-      for (let i = 0; i < g.length; i ++){
-        this.groups[i] = g[i];
-      }
     }),
       err => console.log(`An error occured: ${err}`);
   }

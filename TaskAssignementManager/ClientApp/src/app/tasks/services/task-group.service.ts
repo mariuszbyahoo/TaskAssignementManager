@@ -32,4 +32,8 @@ export class TaskGroupService implements OnInit {
   patchTaskGroup(taskGroup): Observable<ITaskGroup> {
     return this.http.patch<ITaskGroup>(this.url, taskGroup);
   }
+
+  postTaskGroup(taskGroup): Observable<ITaskGroup> {
+    return this.http.post<ITaskGroup>(this.url, taskGroup);
+  }
 }

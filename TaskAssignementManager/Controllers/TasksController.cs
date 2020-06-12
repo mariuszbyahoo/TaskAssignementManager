@@ -39,7 +39,7 @@ namespace TaskAssignementManager.Web.Controllers
 
         [Route("grouped/all")]
         [HttpGet]
-        public async Task<ActionResult<ICollection<TaskGroup>>> GetGrouped()
+        public async Task<ActionResult<TaskGroup[]>> GetGrouped()
         {
             var result = await _taskGroups.GetEntites();
             return Ok(result);
@@ -47,7 +47,7 @@ namespace TaskAssignementManager.Web.Controllers
 
         [Route("grouped/specific")]
         [HttpGet]
-        public async Task<ActionResult<ICollection<UserTask>>> GetFromGroup(Guid id)
+        public async Task<ActionResult<UserTask[]>> GetFromGroup(Guid id)
         {
             var collection = await _userTasks.GetEntites();
             var result = collection.Where(t => t.GroupId.Equals(id));

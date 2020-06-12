@@ -43,6 +43,6 @@ namespace TaskAssignementManager.Data
         /// Gets all available entites
         /// </summary>
         /// <returns></returns>
-        Task<ICollection<T>> GetEntites();
+        Task<T[]> GetEntites();
     }
 }

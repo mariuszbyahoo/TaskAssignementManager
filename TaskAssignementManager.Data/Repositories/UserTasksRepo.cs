@@ -43,7 +43,7 @@ namespace TaskAssignementManager.Data
             return Ctx.UserTasks.Where(t => t.Id.Equals(entityId)).FirstOrDefault();
         }
 
-        public async Task<ICollection<UserTask>> GetEntites()
+        public async Task<UserTask[]> GetEntites()
         {
             return await Ctx.UserTasks.ToArrayAsync();
         }

@@ -22,7 +22,7 @@ namespace TaskAssignementManager.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ICollection<TaskGroup>>> Get()
+        public async Task<ActionResult<TaskGroup[]>> Get()
         {
             var res = await _taskGroups.GetEntites();
             return Ok(res);
@@ -45,6 +45,11 @@ namespace TaskAssignementManager.Web.Controllers
             {
                 entity.Id = Guid.NewGuid();
             }
+            var lookup = _taskGroups.GetEntity(entity.Id);
+            if (lookup!=null)
+            {
+                return StatusCode(409);
+            }
             var res = await _taskGroups.AddEntity(entity);
             return Created("groups", res);
         }
@@ -52,8 +57,15 @@ namespace TaskAssignementManager.Web.Controllers
         [HttpPatch]
         public async Task<ActionResult<TaskGroup>> Patch([FromBody] TaskGroup entity)
         {
-            var res = await _taskGroups.UpdateEntity(entity);
-            return Ok(res);
+            try
+            {
+                var res = await _taskGroups.UpdateEntity(entity);
+                return Ok(res);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpDelete]

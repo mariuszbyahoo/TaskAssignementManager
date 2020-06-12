@@ -35,7 +35,7 @@ namespace TaskAssignementManager.Data
             await Ctx.SaveChangesAsync();
         }
 
-        public async Task<ICollection<TaskGroup>> GetEntites()
+        public async Task<TaskGroup[]> GetEntites()
         {
             var res =  await Ctx.TaskGroups.ToArrayAsync();
             var allTasks = await _tasks.GetEntites();
@@ -66,6 +66,16 @@ namespace TaskAssignementManager.Data
 
         public async Task<TaskGroup> UpdateEntity(TaskGroup entity)
         {
+            var newTasks = entity.UserTasks.ToArray();
+            var presentTasks = await _tasks.GetEntites();
+            presentTasks = presentTasks.Where(t => t.GroupId.Equals(entity.Id)).ToArray();
+            Ctx.UserTasks.RemoveRange(presentTasks);
+            Ctx.SaveChanges();
+            Ctx.UserTasks.AddRange(newTasks);
+            Ctx.SaveChanges();
+            // have to implement adding new tasks and removing deleted ones in here.
+            // or to implement it on the client side. Have to figure it out.
+            // like in DELETE action, looks easy to implement
             Ctx.TaskGroups.Update(entity);
             await Ctx.SaveChangesAsync();
             return entity;

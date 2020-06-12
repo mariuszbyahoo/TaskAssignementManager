@@ -47,6 +47,13 @@ export class SpecificGroupComponent implements OnInit {
     })
   }
 
+  submit(g){
+    console.log('Submitted!');
+    g.userTasks = this.userTasks;
+    g.name = this.name;
+    console.log(g);
+  }
+
   delete(tile) {
     let initialLength = this.userTasks.length;
     console.log(this.userTasks);

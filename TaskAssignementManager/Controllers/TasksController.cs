@@ -37,11 +37,23 @@ namespace TaskAssignementManager.Web.Controllers
             return Ok(entity);
         }
 
-        [Route("grouped")]
+        [Route("grouped/all")]
         [HttpGet]
         public async Task<ActionResult<ICollection<TaskGroup>>> GetGrouped()
         {
             var result = await _taskGroups.GetEntites();
+            return Ok(result);
+        }
+
+        [Route("grouped/specific")]
+        [HttpGet]
+        public async Task<ActionResult<ICollection<UserTask>>> GetFromGroup(Guid id)
+        {
+            var collection = await _userTasks.GetEntites();
+            var result = collection.Where(t => t.GroupId.Equals(id));
+            if (result.Equals(null))
+                return NotFound($"Not found any tasks assigned to group with an id of {id}");
+
             return Ok(result);
         }
 

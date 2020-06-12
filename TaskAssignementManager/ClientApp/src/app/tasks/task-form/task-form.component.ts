@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class TaskFormComponent implements OnInit {
   @Input() group: ITaskGroup;
   @Output() reloadList = new EventEmitter();
+  // dodaj może tablicę tasków i tu przechowuj je, celem weryfikacji?
+  tempTasksArray: IUserTask[];
   task: IUserTask;
   taskSubscription: Subscription;
   todayDate: Date = new Date();
@@ -30,7 +32,6 @@ export class TaskFormComponent implements OnInit {
     private route : ActivatedRoute) {
     this.taskSubscription = userTaskService.taskSelected$.subscribe(t => {
       this.task = t;
-      // TODO Zobacz czy zaakceptuje 
       this.task.inMemoryStatus = t.status.toString();
     });
   }
@@ -54,7 +55,7 @@ export class TaskFormComponent implements OnInit {
 
   submit(form : NgForm) {
     if(form.valid){
-      if (this.task.id === this.emptyGuid) {
+      if (this.task.id === this.emptyGuid)/* Ten warunek trzeba zmienić na inny, tego nie widzi. */ {
         this.post();
       }
       else {
@@ -81,7 +82,15 @@ export class TaskFormComponent implements OnInit {
       inMemoryStatus: '0', usersId: this.emptyGuid,
       id: this.emptyGuid
     }
-    this.task = this.freshTask;
+    this.userTaskService.getTasksFromGroup(this.group.id).subscribe(arr => {
+      this.tempTasksArray = arr;
+    }, err => console.error(err),
+    () => { // Jak to się zachowa w przypadku nowej grupy?
+      console.log('tempTasksArray:');
+      console.log(this.tempTasksArray);
+    });
+    this.refresh();
+
   }
 
   post(){

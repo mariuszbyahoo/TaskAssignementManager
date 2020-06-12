@@ -30,6 +30,11 @@ export class UserTaskService {
     return this.http.get<IUserTask>(url);
   }
 
+  getTasksFromGroup(id) {
+    let url = `${this.url}/grouped/specific?id=${id}`;
+    return this.http.get<IUserTask[]>(url);
+  }
+
   delete(id) {
     let url = `${this.url}/${id}`;
     return this.http.delete(url);

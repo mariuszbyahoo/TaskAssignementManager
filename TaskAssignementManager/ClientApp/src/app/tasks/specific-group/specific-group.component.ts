@@ -9,6 +9,7 @@ import { TaskGroupService } from '../services/task-group.service';
 import { UserTaskService } from '../services/user-task.service';
 import { UtilsService } from '../services/utils-service';
 import { Subscription } from 'rxjs';
+import { ITile } from '../userTasks/ITile';
 
 @Component({
   selector: 'app-specific-group',
@@ -21,7 +22,7 @@ export class SpecificGroupComponent implements OnInit {
   name: string
   taskGroup: ITaskGroup
   userTasks: IUserTask[];
-  tiles: Tile[];
+  tiles: ITile[];
   counter: number = 0; // pokazuje, który raz uruchomiona została metoda ngOnInit
   userTasksSubscription : Subscription;
   matcher = new MyErrorStateMatcher();
@@ -82,7 +83,7 @@ export class SpecificGroupComponent implements OnInit {
     }
     // refresh() loop depends on userTasks length changed above, so
     if(initialLength < 2){
-      this.tiles = new Array<Tile>(0);
+      this.tiles = new Array<ITile>(0);
     }
     this.refresh();
   }
@@ -125,9 +126,11 @@ export class SpecificGroupComponent implements OnInit {
 
   refresh(){
     for (let i = 0; i < this.userTasks.length; i++){
-      this.tiles = new Array<Tile>(0);
+      this.tiles = new Array<ITile>(0);
+      let tile: ITile;
       this.userTasks.forEach(el => {
-        this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
+        tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id};
+        this.tiles.push(tile);
       });
       console.log('tiles length');
       console.log(this.tiles.length);
@@ -144,10 +147,12 @@ export class SpecificGroupComponent implements OnInit {
   }
 
   populateTiles(){
+    let tile: ITile;
     for (let i = 0; i < this.taskGroup.userTasks.length; i++){
-      this.tiles = new Array<Tile>(0);
+      this.tiles = new Array<ITile>(0);
       this.userTasks.forEach(el => {
-        this.tiles.push(new Tile(el.name, 1, 1, 'lightgray', el.id));
+        tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id}
+        this.tiles.push(tile);
       });
     }
   }
@@ -158,18 +163,4 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-class Tile {
-  text: string;
-  cols: number;
-  rows: number;
-  color: string;
-  taskId: string;
 
-  constructor(text, cols, rows, color, taskId){
-    this.text = text;
-    this.cols = cols;
-    this.rows = rows;
-    this.color = color;
-    this.taskId = taskId;
-  }
-}

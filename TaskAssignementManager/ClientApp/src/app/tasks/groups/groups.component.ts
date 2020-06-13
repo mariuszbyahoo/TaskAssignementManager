@@ -18,7 +18,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'tasks amount', 'delete'];
+  displayedColumns: string[] = ['name', 'tasks_amount', 'delete'];
   dataSource = new MatTableDataSource<ITaskGroup>();
 
   ngOnInit() {

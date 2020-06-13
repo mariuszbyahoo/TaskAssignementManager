@@ -46,12 +46,11 @@ export class SpecificGroupComponent implements OnInit {
     })
   }
 
-  submit(g){
-    if (name !== '') {
+  submit(g) {
+    if (this.name !== '') {
       g.userTasks = this.userTasks;
       g.name = this.name;
       this.taskGroupService.getTaskGroup(g.id).subscribe(found => {
-        console.log(found);
         this.taskGroupService.patchTaskGroup(g).subscribe(result => {
           console.log('patched an existing TaskGroup');
           console.log(result);

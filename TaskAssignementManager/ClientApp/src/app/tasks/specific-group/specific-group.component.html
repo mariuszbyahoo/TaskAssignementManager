@@ -19,7 +19,7 @@
 <mat-form-field id="titleForm" class="specific-group">
   
   <input matInput type="text" [formControl]="taskGroupNameFormControl" 
-    [errorStateMatcher]="matcher" [(ngModel)]="name">
+    [errorStateMatcher]="matcher" [(ngModel)]="name" />
     
   <button mat-icon-button color="warn" *ngIf="name" matSuffix aria-label="Clear" 
     (click)="name=''" matTooltip="clear">

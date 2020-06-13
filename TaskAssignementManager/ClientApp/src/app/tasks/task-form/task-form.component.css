@@ -13,3 +13,7 @@ table.userTaskForm {
 mat-form-field {
     width: 100%;
 }
+
+button {
+    margin: 5px;
+}

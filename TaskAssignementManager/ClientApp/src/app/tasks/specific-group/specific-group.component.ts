@@ -52,20 +52,16 @@ export class SpecificGroupComponent implements OnInit {
       g.name = this.name;
       this.taskGroupService.getTaskGroup(g.id).subscribe(found => {
         this.taskGroupService.patchTaskGroup(g).subscribe(result => {
-          console.log('patched an existing TaskGroup');
-          console.log(result);
         }, err => console.error(err),
           () => this.back()
         );
       }, err => {
         console.error(err);
         this.taskGroupService.postTaskGroup(g).subscribe(result => {
-          console.log('created a new TaskGroup');
         }, err => console.error(err),
           () => this.back()
         );
-      },
-        () => console.log('Lookup function done.'));
+      });
     }
     else {
     }
@@ -73,12 +69,9 @@ export class SpecificGroupComponent implements OnInit {
 
   delete(tile) {
     let initialLength = this.userTasks.length;
-    console.log(this.userTasks);
-    console.log(this.tiles);
     for(let i = 0 ; i < this.userTasks.length; i ++){
       if(this.userTasks[i].id === tile.taskId){
         this.userTasks.splice(i, 1);
-        console.log('deleted from userTasks array');
       }
     }
     // refresh() loop depends on userTasks length changed above, so
@@ -91,13 +84,6 @@ export class SpecificGroupComponent implements OnInit {
   taskGroupNameFormControl = new FormControl('', [
     Validators.required
   ]);
-
-  printInnerData() {
-    console.log('this.userTasks:');
-    console.log(this.userTasks);
-    console.log('this.tiles:');
-    console.log(this.tiles)
-  }
 
   sendTask(tile) {
     this.userTasks.forEach(t => {
@@ -161,14 +147,11 @@ export class SpecificGroupComponent implements OnInit {
   }
 
   deleteDuplicates() {
-    console.log('Beginning deletion process');
-    console.log(this.userTasks);
     let set = new Set(this.userTasks);
     this.userTasks = new Array<IUserTask>(0);
     set.forEach(t => {
       this.userTasks.push(t);
     })
-    console.log(this.userTasks);
   }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {

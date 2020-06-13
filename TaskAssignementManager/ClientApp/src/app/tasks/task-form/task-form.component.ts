@@ -67,9 +67,7 @@ export class TaskFormComponent implements OnInit {
       if (lookup){
         this.task.status = parseInt(this.task.inMemoryStatus);
         for(let i = 0 ; i < this.userTasks.length ; i ++){
-          console.log(i);
           if(this.userTasks[i].id === this.task.id){
-            console.log('MATCH');
             this.userTasks[i].name = this.task.name;
             this.userTasks[i].deadline = this.task.deadline;
             this.userTasks[i].inMemoryStatus = this.task.inMemoryStatus;
@@ -77,21 +75,8 @@ export class TaskFormComponent implements OnInit {
             this.userTasks[i].usersId = this.task.usersId;
           }
         }
-        // this.userTasks.forEach(t => {
-
-        //   // Ta metoda jest wywoływana dwukrotnie?????????
-        //   if(t.id === this.task.id){
-        //     console.log('MATCH');
-        //     t.name = this.task.name;
-        //     t.deadline = this.task.deadline;
-        //     t.inMemoryStatus = this.task.inMemoryStatus;
-        //     t.status = this.task.status;
-        //     t.usersId = this.task.usersId;
-        //   }
-        // });
       }
       else {
-        console.log('Adding');
         this.add();
       }
       this.refresh();
@@ -101,7 +86,6 @@ export class TaskFormComponent implements OnInit {
 
   add(){
     this.task.status = parseInt(this.task.inMemoryStatus);
-    console.log('ADD INVOKED');
     this.userTasks.push(this.task);
   }
 

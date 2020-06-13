@@ -148,12 +148,14 @@ export class SpecificGroupComponent implements OnInit {
 
   populateTiles(){
     let tile: ITile;
-    for (let i = 0; i < this.taskGroup.userTasks.length; i++){
-      this.tiles = new Array<ITile>(0);
-      this.userTasks.forEach(el => {
-        tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id}
-        this.tiles.push(tile);
-      });
+    if(this.taskGroup.userTasks){
+      for (let i = 0; i < this.taskGroup.userTasks.length; i++){
+        this.tiles = new Array<ITile>(0);
+        this.userTasks.forEach(el => {
+          tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id}
+          this.tiles.push(tile);
+        });
+      }
     }
   }
 }

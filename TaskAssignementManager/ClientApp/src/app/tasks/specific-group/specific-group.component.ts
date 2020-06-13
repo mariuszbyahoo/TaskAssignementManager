@@ -162,10 +162,6 @@ deleteDuplicates() {
     const start = this.currentPage * this.pageSize;
     const part = this.tiles.slice(start, end);
     this.dataSource = new MatTableDataSource<ITile>(part);
-    console.log(this.tiles);
-    console.log(`start: ${start}, end: ${end}`);
-    console.log('part: ')
-    console.log(part);
   }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {

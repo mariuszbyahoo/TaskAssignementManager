@@ -12,7 +12,7 @@ export class GroupsComponent implements OnInit {
   constructor(private taskGroupService: TaskGroupService) { }
 
   groups: ITaskGroup[];  
-
+  displayedColumns: string[] = ['name', 'tasks amount', 'delete'];
   ngOnInit() {
     this.fetchData();
   }

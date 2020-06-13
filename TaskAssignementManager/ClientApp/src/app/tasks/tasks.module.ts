@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
 
 import { SpecificGroupComponent } from './specific-group/specific-group.component';
 import { GroupsComponent } from './groups/groups.component';
@@ -38,7 +39,8 @@ import { TaskFormComponent } from './task-form/task-form.component';
     MatNativeDateModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ],
   exports: [GroupsComponent]
 })

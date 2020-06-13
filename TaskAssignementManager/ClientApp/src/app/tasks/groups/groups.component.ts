@@ -16,7 +16,6 @@ export class GroupsComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  groups: ITaskGroup[];  
   displayedColumns: string[] = ['name', 'tasks amount', 'delete'];
   dataSource : MatTableDataSource<ITaskGroup>;
 
@@ -26,10 +25,7 @@ export class GroupsComponent implements OnInit {
 
   fetchData(): void {
     this.taskGroupService.getTaskGroups().subscribe(g => {
-      this.groups = g;
-      console.log(g);
       this.dataSource = new MatTableDataSource<ITaskGroup>(g);
-      console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
     }),
       err => console.log(`An error occured: ${err}`);

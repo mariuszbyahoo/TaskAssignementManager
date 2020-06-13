@@ -10,8 +10,6 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TasksModule } from './tasks/tasks.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './tasks/groups/groups.component';
@@ -21,8 +19,6 @@ import { SpecificGroupComponent } from './tasks/specific-group/specific-group.co
   declarations: [
     AppComponent,
     NavMenuComponent,
-    CounterComponent,
-    FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,8 +31,6 @@ import { SpecificGroupComponent } from './tasks/specific-group/specific-group.co
     MatMenuModule,
     RouterModule.forRoot([
       { path: '', component: GroupsComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'groups/new', component: SpecificGroupComponent, pathMatch: 'full' },
       { path: 'groups/edit', component: SpecificGroupComponent, pathMatch: 'full' }
     ]),

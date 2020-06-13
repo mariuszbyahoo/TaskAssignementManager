@@ -112,7 +112,6 @@ sendTask(tile) {
     this.userTasks = this.taskGroup.userTasks;
     this.refresh();
   }, err => {
-    console.error(err);
     this.taskGroup = { id: this.utilsService.newGuid(), name: '', userTasks: this.userTasks };
     this.name = this.taskGroup.name;
     this.refresh();

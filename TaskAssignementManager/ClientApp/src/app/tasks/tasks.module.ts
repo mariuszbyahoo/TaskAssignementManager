@@ -11,7 +11,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import {  MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule} from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SpecificGroupComponent } from './specific-group/specific-group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { TaskFormComponent } from './task-form/task-form.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -38,10 +39,10 @@ import { TaskFormComponent } from './task-form/task-form.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatPaginatorModule,
     MatTooltipModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [GroupsComponent]
 })

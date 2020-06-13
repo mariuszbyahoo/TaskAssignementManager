@@ -2,6 +2,10 @@ table#groupsTable{
     width: 100%;
 }
 
+th.mat-sort-header-sorted {
+    color: black;
+  }
+
 h1 {
     text-align: center;
 }

@@ -18,6 +18,9 @@
                 id="deadline" required matTooltip="month/day/year">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="taskNameFormControl.hasError('required')">
+                You cannot plan the <strong>past</strong>
+            </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-select id="usersId"

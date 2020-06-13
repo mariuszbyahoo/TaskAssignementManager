@@ -113,8 +113,7 @@ export class TaskFormComponent implements OnInit {
       }, err => {
         console.error(err);
       },
-      () => { // Jak to się zachowa w przypadku nowej grupy?
-        console.log(this.userTasks);
+      () => { 
         this.isTaskExisting(this.userTasks);
       });
       this.refresh();

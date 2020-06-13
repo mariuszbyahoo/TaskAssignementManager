@@ -14,8 +14,6 @@ import { TasksModule } from './tasks/tasks.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './tasks/groups/groups.component';
 import { SpecificGroupComponent } from './tasks/specific-group/specific-group.component';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -27,12 +25,7 @@ import { MatTableModule } from '@angular/material/table';
     HttpClientModule,
     FormsModule,
     TasksModule,
-    MatButtonModule,
     MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSortModule,
     RouterModule.forRoot([
       { path: '', component: GroupsComponent, pathMatch: 'full' },
       { path: 'groups/new', component: SpecificGroupComponent, pathMatch: 'full' },

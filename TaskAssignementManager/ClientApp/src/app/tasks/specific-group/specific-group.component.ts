@@ -127,6 +127,7 @@ export class SpecificGroupComponent implements OnInit {
   }
 
   refresh(){
+    this.deleteDuplicates();
     for (let i = 0; i < this.userTasks.length; i++){
       this.tiles = new Array<ITile>(0);
       let tile: ITile;
@@ -157,6 +158,17 @@ export class SpecificGroupComponent implements OnInit {
         });
       }
     }
+  }
+
+  deleteDuplicates() {
+    console.log('Beginning deletion process');
+    console.log(this.userTasks);
+    let set = new Set(this.userTasks);
+    this.userTasks = new Array<IUserTask>(0);
+    set.forEach(t => {
+      this.userTasks.push(t);
+    })
+    console.log(this.userTasks);
   }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {

@@ -1,11 +1,14 @@
 <div class="row" id="submitter">
-  <div class="col-sm-10">
+  <div class="col-sm-8">
     <button mat-icon-button color="accent" id="actionButton" matPrefix aria-label="Back" 
     (click)="back()" matTooltip="Get back to groups list">
       <mat-icon>arrow_back_ios</mat-icon>
       <mat-icon>arrow_back_ios</mat-icon>
       <mat-icon>arrow_back_ios</mat-icon>
     </button>
+  </div>
+  <div class="col-sm-2">
+    <button (click)="printInnerData()">Print</button>
   </div>
   <div class="col-sm-2">
     <button mat-raised-button id="actionButton" matTooltip="Save task group" color="accent" (click)="submit(taskGroup)">

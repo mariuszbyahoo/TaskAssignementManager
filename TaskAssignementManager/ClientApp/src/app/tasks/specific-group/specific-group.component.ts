@@ -93,6 +93,13 @@ export class SpecificGroupComponent implements OnInit {
     Validators.required
   ]);
 
+  printInnerData() {
+    console.log('this.userTasks:');
+    console.log(this.userTasks);
+    console.log('this.tiles:');
+    console.log(this.tiles)
+  }
+
   sendTask(tile) {
     this.userTasks.forEach(t => {
       if(t.id === tile.taskId){

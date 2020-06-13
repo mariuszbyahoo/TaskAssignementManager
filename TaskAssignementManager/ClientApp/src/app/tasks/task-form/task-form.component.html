@@ -25,8 +25,10 @@
         <mat-form-field>
             <mat-select id="usersId"
                 required [(ngModel)]="task.usersId" name="usersId">
-                <mat-option value="00000000-0000-0000-0000-000000000000">Unassigned</mat-option>
-                <mat-option value="b4bf4e52-e77a-4f22-9de6-6af24fa3fae1">Existing User</mat-option>
+                <mat-option value="00000000-0000-0000-0000-000000000000">N/A</mat-option>
+                <div *ngFor="let user of users">
+                    <mat-option value={{user.id}}>{{user.fullName}}</mat-option>
+                </div>
             </mat-select>
           </mat-form-field>
         <mat-form-field>

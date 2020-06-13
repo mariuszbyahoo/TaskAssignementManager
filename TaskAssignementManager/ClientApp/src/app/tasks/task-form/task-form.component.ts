@@ -6,6 +6,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ITaskGroup } from '../userTasks/ITaskGroup';
 import { ActivatedRoute } from '@angular/router';
 import { UtilsService } from '../services/utils-service';
+import { IUser } from '../userTasks/IUser';
 
 @Component({
   selector: 'app-task-form',
@@ -14,11 +15,13 @@ import { UtilsService } from '../services/utils-service';
 })
 export class TaskFormComponent implements OnInit {
   @Input() group: ITaskGroup;
-  userTasks: IUserTask[];
   @Output() reloadList = new EventEmitter();
-  task: IUserTask;
   taskSubscription: Subscription;
   tasksArrSubscription: Subscription;
+
+  userTasks: IUserTask[];
+  users: IUser[];
+  task: IUserTask;
   todayDate: Date = new Date();
   formName = null;
   emptyGuid = '00000000-0000-0000-0000-000000000000';
@@ -64,16 +67,20 @@ export class TaskFormComponent implements OnInit {
       if (lookup){
         this.task.status = parseInt(this.task.inMemoryStatus);
         this.userTasks.forEach(t => {
+          // Ta metoda jest wywoływana dwukrotnie?????????
           if(t.id === this.task.id){
             t.name = this.task.name;
             t.deadline = this.task.deadline;
             t.inMemoryStatus = this.task.inMemoryStatus;
             t.status = this.task.status;
             t.usersId = this.task.usersId;
+            console.log(this.task.usersId);
+            console.log("Edited");
           }
         });
       }
       else {
+        console.log('Adding');
         this.add();
       }
       this.refresh();
@@ -83,6 +90,7 @@ export class TaskFormComponent implements OnInit {
 
   add(){
     this.task.status = parseInt(this.task.inMemoryStatus);
+    console.log('ADD INVOKED');
     this.userTasks.push(this.task);
   }
 
@@ -97,6 +105,9 @@ export class TaskFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.utilsService.getUsers().subscribe(u => {
+      this.users = u;
+    })
     if (!this.group) {
       let paramId = this.route.snapshot.queryParams['id'];
       this.group = { id: paramId, name: '', userTasks: null }

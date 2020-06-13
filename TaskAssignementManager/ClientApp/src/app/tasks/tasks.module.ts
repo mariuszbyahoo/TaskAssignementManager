@@ -40,7 +40,8 @@ import { TaskFormComponent } from './task-form/task-form.component';
     MatSelectModule,
     MatPaginatorModule,
     MatTooltipModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [GroupsComponent]
 })

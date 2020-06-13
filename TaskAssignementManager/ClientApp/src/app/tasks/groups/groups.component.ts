@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {TaskGroupService } from '../services/task-group.service';
 import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-groups',
@@ -11,8 +14,12 @@ export class GroupsComponent implements OnInit {
 
   constructor(private taskGroupService: TaskGroupService) { }
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   groups: ITaskGroup[];  
   displayedColumns: string[] = ['name', 'tasks amount', 'delete'];
+  dataSource : MatTableDataSource<ITaskGroup>;
+
   ngOnInit() {
     this.fetchData();
   }
@@ -20,6 +27,10 @@ export class GroupsComponent implements OnInit {
   fetchData(): void {
     this.taskGroupService.getTaskGroups().subscribe(g => {
       this.groups = g;
+      console.log(g);
+      this.dataSource = new MatTableDataSource<ITaskGroup>(g);
+      console.log(this.dataSource);
+      this.dataSource.paginator = this.paginator;
     }),
       err => console.log(`An error occured: ${err}`);
   }

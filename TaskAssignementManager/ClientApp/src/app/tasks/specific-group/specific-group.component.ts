@@ -23,7 +23,6 @@ export class SpecificGroupComponent implements OnInit {
   taskGroup: ITaskGroup
   userTasks: IUserTask[];
   tiles: ITile[];
-  counter: number = 0; // pokazuje, który raz uruchomiona została metoda ngOnInit
   userTasksSubscription : Subscription;
   matcher = new MyErrorStateMatcher();
 
@@ -36,7 +35,6 @@ export class SpecificGroupComponent implements OnInit {
 
     this.userTasks = new Array<IUserTask>(0);
     this.tiles = [
-
     ]
 
     userTaskService.taskSelected$.subscribe(task => {
@@ -78,7 +76,6 @@ export class SpecificGroupComponent implements OnInit {
       if(this.userTasks[i].id === tile.taskId){
         this.userTasks.splice(i, 1);
         console.log('deleted from userTasks array');
-        // line 59, causes problem?
       }
     }
     // refresh() loop depends on userTasks length changed above, so

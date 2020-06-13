@@ -1,5 +1,5 @@
 
-
+<h1 color="primary">Task groups</h1>
 <mat-nav-list>
     <table id="groupsTable">
         <tr>
@@ -7,26 +7,24 @@
             <th>Tasks</th>
             <th></th>
             <th>
-                <a mat-icon-button color="primary" [routerLink]="['/groups/new']">
+                <a mat-icon-button color="primary" [routerLink]="['/groups/new']" 
+                    matTooltip="Create new group">
                     <mat-icon>add_circle_outline</mat-icon>
                 </a>
             </th>
         </tr>
         <tr *ngFor="let group of groups">
-            <td><a mat-list-item 
-                [routerLink]="['/groups/edit']" [queryParams]="{id: group.id}">
+            <td><a mat-list-item [routerLink]="['/groups/edit']" [queryParams]="{id: group.id}"
+                matTooltip="View this task group">
                     {{ group.name }}
                 </a>
             </td>
-            <td><h4>{{ group.userTasks ? group.userTasks.length : 0 }}</h4></td>
+            <td><h4 matTooltip="Number of tasks in this group">
+                {{ group.userTasks ? group.userTasks.length : 0 }}
+            </h4></td>
             <td>
-                <a mat-icon-button color="accent" [routerLink]="['/groups/edit']" 
-                        [queryParams]="{id: group.id}">
-                    <mat-icon>border_color</mat-icon>
-                </a>
-            </td>
-            <td>
-                <a mat-icon-button color="warn" (click)="deleteTaskGroup(group.id)">
+                <a mat-icon-button matTooltip="Remove this group and the contained tasks" color="warn" 
+                    (click)="deleteTaskGroup(group.id)">
                     <mat-icon>delete_forever</mat-icon>
                 </a>
             </td>

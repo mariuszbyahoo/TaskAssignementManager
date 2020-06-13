@@ -16,7 +16,7 @@
 <mat-form-field id="titleForm" class="specific-group">
   
   <input matInput type="text" [formControl]="taskGroupNameFormControl" 
-    [errorStateMatcher]="matcher" [(ngModel)]="name" matTooltip="Name of this task group">
+    [errorStateMatcher]="matcher" [(ngModel)]="name">
     
   <button mat-icon-button color="warn" *ngIf="name" matSuffix aria-label="Clear" 
     (click)="name=''" matTooltip="clear">
@@ -41,12 +41,12 @@
           <p *ngIf="tiles.length === 0">Add new UserTasks to populate this table</p>
           <div class="row" id="tile" *ngFor="let tile of tiles">
             <div class="titleDiv" class="col-sm-9">
-              <a class="titleAnchor"  mat-list-item matTooltip="edit" (click)="sendTask(tile)">
+              <a class="titleAnchor"  mat-list-item (click)="sendTask(tile)">
                 {{ tile.text }}
               </a>
             </div>
             <div class="col-sm-3">
-              <a mat-icon-button matTooltip="remove" color="warn" (click)="delete(tile)">
+              <a mat-icon-button color="warn" (click)="delete(tile)">
                 <mat-icon>delete_forever</mat-icon>
               </a>
             </div>

@@ -2,7 +2,7 @@
 <form (ngSubmit)="submit(userTaskFrom)" #userTaskFrom="ngForm">
         <mat-form-field>
             <input matInput id="name" [(ngModel)]="task.name" name="name" 
-                [errorStateMatcher]="matcher" required matTooltip="Task's name">
+                [errorStateMatcher]="matcher" required>
             <button color="warn" *ngIf="task.name" matSuffix 
                 mat-icon-button aria-label="Clear" (click)="task.name=''">
                 <mat-icon>close</mat-icon>
@@ -16,11 +16,11 @@
             <input matInput [matDatepicker]="picker" [min]="todayDate" 
                 [(ngModel)]="task.deadline" name="deadline"
                 id="deadline" required matTooltip="month/day/year">
-            <mat-datepicker-toggle matSuffix [for]="picker" matTooltip="open calendar"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-            <mat-select id="usersId" matTooltip="task is assigned to..."
+            <mat-select id="usersId"
                 required [(ngModel)]="task.usersId" name="usersId">
                 <mat-option value="00000000-0000-0000-0000-000000000000">Unassigned</mat-option>
                 <mat-option value="b4bf4e52-e77a-4f22-9de6-6af24fa3fae1">Existing User</mat-option>
@@ -29,7 +29,7 @@
         <mat-form-field>
             <mat-label>Task's status</mat-label>
             <mat-select id="inMemoryStatus" required [(ngModel)]="task.inMemoryStatus" 
-                name="inMemoryStatus" matTooltip="select current status">
+                name="inMemoryStatus">
               <mat-option value='0'>New</mat-option>
               <mat-option value='1'>InProgress</mat-option>
               <mat-option value='2'>Completed</mat-option>

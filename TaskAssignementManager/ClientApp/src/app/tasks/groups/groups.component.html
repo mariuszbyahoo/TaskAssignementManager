@@ -14,16 +14,15 @@
             </th>
         </tr>
         <tr *ngFor="let group of groups">
-            <td><a mat-list-item [routerLink]="['/groups/edit']" [queryParams]="{id: group.id}"
-                matTooltip="View this task group">
+            <td><a mat-list-item [routerLink]="['/groups/edit']" [queryParams]="{id: group.id}">
                     {{ group.name }}
                 </a>
             </td>
-            <td><h4 matTooltip="Number of tasks in this group">
+            <td><h4>
                 {{ group.userTasks ? group.userTasks.length : 0 }}
             </h4></td>
             <td>
-                <a mat-icon-button matTooltip="Remove this group and the contained tasks" color="warn" 
+                <a mat-icon-button color="warn" 
                     (click)="deleteTaskGroup(group.id)">
                     <mat-icon>delete_forever</mat-icon>
                 </a>

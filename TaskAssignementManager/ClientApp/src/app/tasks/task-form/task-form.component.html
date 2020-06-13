@@ -1,4 +1,4 @@
-<h4>Task {{ task.name }}</h4>
+<h4>{{ task.name? task.name : formName  }}</h4>
 <form (ngSubmit)="submit(userTaskFrom)" #userTaskFrom="ngForm">
         <mat-form-field>
             <input matInput id="name" [(ngModel)]="task.name" name="name" 

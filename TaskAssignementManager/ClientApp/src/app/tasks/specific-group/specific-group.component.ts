@@ -47,25 +47,29 @@ export class SpecificGroupComponent implements OnInit {
   }
 
   submit(g){
-    g.userTasks = this.userTasks;
-    g.name = this.name;
-    this.taskGroupService.getTaskGroup(g.id).subscribe(found => {
-      console.log(found);
-      this.taskGroupService.patchTaskGroup(g).subscribe(result =>{
-        console.log('patched an existing TaskGroup');
-        console.log(result);
+    if (name !== '') {
+      g.userTasks = this.userTasks;
+      g.name = this.name;
+      this.taskGroupService.getTaskGroup(g.id).subscribe(found => {
+        console.log(found);
+        this.taskGroupService.patchTaskGroup(g).subscribe(result => {
+          console.log('patched an existing TaskGroup');
+          console.log(result);
         }, err => console.error(err),
-        () => this.back()
-      );
-    }, err => {
-      console.error(err); 
-      this.taskGroupService.postTaskGroup(g).subscribe(result => {
-        console.log('created a new TaskGroup');
+          () => this.back()
+        );
+      }, err => {
+        console.error(err);
+        this.taskGroupService.postTaskGroup(g).subscribe(result => {
+          console.log('created a new TaskGroup');
         }, err => console.error(err),
-        () => this.back()
-      );
-    },
-    () => console.log('Lookup function done.'));
+          () => this.back()
+        );
+      },
+        () => console.log('Lookup function done.'));
+    }
+    else {
+    }
   }
 
   delete(tile) {
@@ -88,13 +92,6 @@ export class SpecificGroupComponent implements OnInit {
   taskGroupNameFormControl = new FormControl('', [
     Validators.required
   ]);
-
-  changeTaskGroupsName(name) {
-    this.taskGroup.name = name;
-    this.taskGroupService.patchTaskGroup(this.taskGroup).subscribe(g => {
-      this.taskGroup = g;
-    })
-  }
 
   sendTask(tile) {
     this.userTasks.forEach(t => {

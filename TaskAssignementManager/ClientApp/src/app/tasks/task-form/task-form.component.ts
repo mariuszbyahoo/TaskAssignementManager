@@ -20,7 +20,7 @@ export class TaskFormComponent implements OnInit {
   taskSubscription: Subscription;
   tasksArrSubscription: Subscription;
   todayDate: Date = new Date();
-  name = '';
+  formName = null;
   emptyGuid = '00000000-0000-0000-0000-000000000000';
   freshTask= {
     name: '', deadline: this.todayDate,
@@ -60,10 +60,9 @@ export class TaskFormComponent implements OnInit {
 
   submit(form : NgForm) {
     if(form.valid){
-      let lookup = this.isTaskExisting();
+      let lookup = this.isTaskExisting(this.userTasks);
       if (lookup){
         this.task.status = parseInt(this.task.inMemoryStatus);
-        let taskIndex = this.userTasks.findIndex(t => t.id === this.task.id);
         this.userTasks.forEach(t => {
           if(t.id === this.task.id){
             t.name = this.task.name;
@@ -87,13 +86,13 @@ export class TaskFormComponent implements OnInit {
     this.userTasks.push(this.task);
   }
 
-  /* ta funkcja jest do sprawdzenia, czy w istniejących taskach już jest taki task */
-  isTaskExisting(): boolean {
-    for(let i = 0 ; i < this.userTasks.length; i ++){
-      if(this.task.id === this.userTasks[i].id){
+  isTaskExisting(userTasks): boolean {
+    for(let i = 0 ; i < userTasks.length; i ++){
+      if(this.task.id === userTasks[i].id){
         return true;
       }
     }
+    this.formName = 'New Task:';
     return false;
   }
 
@@ -116,14 +115,15 @@ export class TaskFormComponent implements OnInit {
       },
       () => { // Jak to się zachowa w przypadku nowej grupy?
         console.log(this.userTasks);
+        this.isTaskExisting(this.userTasks);
       });
       this.refresh();
     }
     else{
       this.task = { id: this.utilsService.newGuid(), name: '', deadline: new Date(), status: 0, 
       inMemoryStatus: '0', usersId: this.emptyGuid, groupId: this.group.id }
+      this.isTaskExisting(new Array<IUserTask>(0));
     }
-
   }
 }
 

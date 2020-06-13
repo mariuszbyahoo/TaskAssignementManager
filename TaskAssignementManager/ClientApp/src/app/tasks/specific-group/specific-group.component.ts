@@ -77,7 +77,9 @@ export class SpecificGroupComponent implements OnInit {
     // refresh() loop depends on userTasks length changed above, so
     if(initialLength < 2){
       this.tiles = new Array<ITile>(0);
+      this.userTasks = new Array<IUserTask>(0);
     }
+    this.userTaskService.sendTasksArr(this.userTasks);
     this.refresh();
   }
 
@@ -103,25 +105,23 @@ export class SpecificGroupComponent implements OnInit {
       this.taskGroup = group;
       this.name = this.taskGroup.name;
       this.userTasks = this.taskGroup.userTasks;
-     this.populateTiles();
+     this.refresh();
     }, err => {
       console.error(err);
       this.taskGroup = {id: this.utilsService.newGuid(), name : '', userTasks: this.userTasks};
       this.name = this.taskGroup.name;
-      this.populateTiles();
+      this.refresh();
     })
   }
 
   refresh(){
     this.deleteDuplicates();
-    for (let i = 0; i < this.userTasks.length; i++){
       this.tiles = new Array<ITile>(0);
       let tile: ITile;
       this.userTasks.forEach(el => {
         tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id};
         this.tiles.push(tile);
       });
-    }
   }
 
   back() {
@@ -131,19 +131,6 @@ export class SpecificGroupComponent implements OnInit {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-
-  populateTiles(){
-    let tile: ITile;
-    if(this.taskGroup.userTasks){
-      for (let i = 0; i < this.taskGroup.userTasks.length; i++){
-        this.tiles = new Array<ITile>(0);
-        this.userTasks.forEach(el => {
-          tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id}
-          this.tiles.push(tile);
-        });
-      }
-    }
   }
 
   deleteDuplicates() {

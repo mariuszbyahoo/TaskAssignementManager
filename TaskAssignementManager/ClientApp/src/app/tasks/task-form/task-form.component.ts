@@ -61,16 +61,11 @@ export class TaskFormComponent implements OnInit {
   submit(form : NgForm) {
     if(form.valid){
       let lookup = this.isTaskExisting();
-      /* Tutaj dodawaj te taski do tablicy, */
       if (lookup){
         this.task.status = parseInt(this.task.inMemoryStatus);
         let taskIndex = this.userTasks.findIndex(t => t.id === this.task.id);
         this.userTasks.forEach(t => {
           if(t.id === this.task.id){
-            console.log('task found in array:');
-            console.log(t);
-            console.log('task from form:');
-            console.log(this.task);
             t.name = this.task.name;
             t.deadline = this.task.deadline;
             t.inMemoryStatus = this.task.inMemoryStatus;
@@ -90,8 +85,6 @@ export class TaskFormComponent implements OnInit {
   add(){
     this.task.status = parseInt(this.task.inMemoryStatus);
     this.userTasks.push(this.task);
-    console.log('dodano do tablicy:')
-    console.log(this.task);
   }
 
   /* ta funkcja jest do sprawdzenia, czy w istniejących taskach już jest taki task */
@@ -127,11 +120,8 @@ export class TaskFormComponent implements OnInit {
       this.refresh();
     }
     else{
-      console.log('looks like youre attempting to create a new task!');
       this.task = { id: this.utilsService.newGuid(), name: '', deadline: new Date(), status: 0, 
       inMemoryStatus: '0', usersId: this.emptyGuid, groupId: this.group.id }
-      console.log('task Id assigned');
-      console.log(this.task.id);
     }
 
   }

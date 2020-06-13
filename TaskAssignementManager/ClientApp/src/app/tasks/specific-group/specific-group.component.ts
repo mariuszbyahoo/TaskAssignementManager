@@ -97,8 +97,10 @@ export class SpecificGroupComponent implements OnInit {
   }
 
   sendTask(tile) {
-    this.userTaskService.getUserTask(tile.taskId).subscribe(t => {
-      this.userTaskService.sendTask(t);
+    this.userTasks.forEach(t => {
+      if(t.id === tile.taskId){
+        this.userTaskService.sendTask(t);
+      }
     })
   }
   
@@ -129,8 +131,6 @@ export class SpecificGroupComponent implements OnInit {
         tile = {text: el.name, cols: 1, rows: 1, color: 'lightGray', taskId: el.id};
         this.tiles.push(tile);
       });
-      console.log('tiles length');
-      console.log(this.tiles.length);
     }
   }
 

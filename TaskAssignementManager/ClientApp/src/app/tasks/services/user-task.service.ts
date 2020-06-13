@@ -1,6 +1,6 @@
 import { Injectable, Inject, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUserTask } from '../userTasks/IUserTask';
+import { IUserTask } from '../models/IUserTask';
 import { Subject } from 'rxjs';
 
 @Injectable({

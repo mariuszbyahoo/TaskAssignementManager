@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-import { IUserTask } from '../userTasks/IUserTask';
-import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { IUserTask } from '../models/IUserTask';
+import { ITaskGroup } from '../models/ITaskGroup';
 import { TaskGroupService } from '../services/task-group.service';
 import { UserTaskService } from '../services/user-task.service';
 import { UtilsService } from '../services/utils-service';
 import { Subscription } from 'rxjs';
-import { ITile } from '../userTasks/ITile';
+import { ITile } from '../models/ITile';
 
 @Component({
   selector: 'app-specific-group',

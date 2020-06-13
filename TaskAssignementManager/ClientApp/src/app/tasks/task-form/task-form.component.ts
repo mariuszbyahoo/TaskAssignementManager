@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IUserTask } from '../userTasks/IUserTask';
+import { IUserTask } from '../models/IUserTask';
 import { UserTaskService } from '../services/user-task.service';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { ITaskGroup } from '../models/ITaskGroup';
 import { ActivatedRoute } from '@angular/router';
 import { UtilsService } from '../services/utils-service';
-import { IUser } from '../userTasks/IUser';
+import { IUser } from '../models/IUser';
 
 @Component({
   selector: 'app-task-form',

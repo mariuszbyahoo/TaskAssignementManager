@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {TaskGroupService } from '../services/task-group.service';
-import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { ITaskGroup } from '../models/ITaskGroup';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 

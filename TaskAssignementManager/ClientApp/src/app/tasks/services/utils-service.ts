@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TaskGroupService } from './task-group.service';
-import { ITaskGroup } from '../userTasks/ITaskGroup';
-import { IUser } from '../userTasks/IUser';
+import { ITaskGroup } from '../models/ITaskGroup';
+import { IUser } from '../models/IUser';
 
 @Injectable({providedIn: 'root'})
 export class UtilsService {

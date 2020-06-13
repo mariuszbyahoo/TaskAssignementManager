@@ -1,7 +1,7 @@
 import { Injectable, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { ITaskGroup } from '../userTasks/ITaskGroup';
+import { ITaskGroup } from '../models/ITaskGroup';
 
 @Injectable({
   providedIn: 'root'

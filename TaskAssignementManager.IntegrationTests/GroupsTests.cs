@@ -16,6 +16,7 @@ namespace TaskAssignementManager.IntegrationTests
     {
         private Guid setUpGroupUuid;
         private string route = "api/groups";
+        private Guid postGroupId = Guid.NewGuid();
 
         [SetUp]
         public async Task SetUp()
@@ -76,6 +77,24 @@ namespace TaskAssignementManager.IntegrationTests
             var resultGroup = JsonConvert.DeserializeObject<TaskGroup>(patchResult.Content);
             resultGroup.Id.Should().Be(setUpGroupUuid);
             resultGroup.Name.Should().Be(newName);                
+        }
+
+        [Test]
+        public async Task PostTaskGroup_WhenPost_AddsTaskGroupToTheArrayAndReturnsItInResponseBody()
+        {
+            string postGroupName = "POST";
+
+            var newGroup = new TaskGroup()
+            {
+                Id = postGroupId,
+                Name = postGroupName,
+                UserTasks = null
+            };
+            var res = await RestApiCall(route, RestSharp.Method.POST, null, newGroup);
+            res.StatusCode.Should().Be(HttpStatusCode.Created);
+            var resGroup = JsonConvert.DeserializeObject<TaskGroup>(res.Content);
+            resGroup.Id.Should().Be(postGroupId.ToString());
+            resGroup.Name.Should().Be(postGroupName);
         }
 
         [TearDown]

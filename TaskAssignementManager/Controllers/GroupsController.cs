@@ -29,8 +29,8 @@ namespace TaskAssignementManager.Web.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public ActionResult<TaskGroup> Get(Guid Id)
+        [Route("take")]
+        public ActionResult<TaskGroup> Get([FromQuery] Guid Id)
         {
             var res = _taskGroups.GetEntity(Id);
             if (res == null)

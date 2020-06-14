@@ -60,7 +60,6 @@ submit(g) {
         () => this.back()
       );
     }, err => {
-      console.error(err);
       this.taskGroupService.postTaskGroup(g).subscribe(result => {
       }, err => console.error(err),
         () => this.back()
@@ -101,7 +100,7 @@ sendTask(tile) {
 }
   
   public ngOnInit() {
-  this.id = this.route.snapshot.queryParams['id'];
+    this.id = this.route.snapshot.queryParams['id'];
   if (!this.id) {
     this.taskGroup = { id: this.utilsService.newGuid(), name: '', userTasks: this.userTasks }
     this.id = this.taskGroup.id;

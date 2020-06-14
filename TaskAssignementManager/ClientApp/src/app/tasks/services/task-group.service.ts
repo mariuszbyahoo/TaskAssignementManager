@@ -20,7 +20,7 @@ export class TaskGroupService implements OnInit {
   }
 
   getTaskGroup(id): Observable<ITaskGroup> {
-    let tempUrl = `${this.url}/${id}`;
+    let tempUrl = `${this.url}/take?id=${id}`;
     return this.http.get<ITaskGroup>(tempUrl);
   }
 

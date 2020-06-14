@@ -49,14 +49,11 @@ namespace TaskAssignementManager.IntegrationTests
             var queryParams = new Dictionary<string, string>();
             queryParams.Add("id", setUpGroupUuid.ToString());
 
-            var res = await RestApiCall(route, RestSharp.Method.GET, queryParams);
+            var res = await RestApiCall($"{route}/take", RestSharp.Method.GET, queryParams);
 
             res.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var groups = JsonConvert.DeserializeObject<TaskGroup[]>(res.Content);
-            groups.Length.Should().BeGreaterThan(0);
-            
-            var group = groups.Where(g => g.Id.Equals(setUpGroupUuid)).FirstOrDefault();
+            var group = JsonConvert.DeserializeObject<TaskGroup>(res.Content);
 
             group.Should().NotBeNull();
             group.UserTasks.Count().Should().BeGreaterThan(0);
@@ -68,7 +65,7 @@ namespace TaskAssignementManager.IntegrationTests
             var newName = "Integration Test PATCHED name";
             var queryParams = new Dictionary<string, string>();
             queryParams.Add("id", setUpGroupUuid.ToString());
-            var getResult = await RestApiCall($"{route}/{setUpGroupUuid.ToString()}", RestSharp.Method.GET, queryParams);
+            var getResult = await RestApiCall($"{route}/take", RestSharp.Method.GET, queryParams);
             var groupToPatch = JsonConvert.DeserializeObject<TaskGroup>(getResult.Content);
             groupToPatch.Name = newName;
 

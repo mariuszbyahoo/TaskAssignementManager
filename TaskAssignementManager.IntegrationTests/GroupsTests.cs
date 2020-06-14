@@ -97,6 +97,21 @@ namespace TaskAssignementManager.IntegrationTests
             resGroup.Name.Should().Be(postGroupName);
         }
 
+        [Test]
+        public async Task ZZ_Delete_WhenDelete_RemovesTaskGroupFromDBAndReturnsNoContent()
+        {
+            var initialGroups = await RestApiCall(route);
+            var initialLength = JsonConvert.DeserializeObject<TaskGroup[]>(initialGroups.Content).Length;
+
+            var deleteResult = await RestApiCall($"{route}/{postGroupId}", RestSharp.Method.DELETE);
+            deleteResult.StatusCode.Should().Be(HttpStatusCode.NoContent);
+
+            var resultGroups = await RestApiCall(route);
+            var resultLength = JsonConvert.DeserializeObject<TaskGroup[]>(resultGroups.Content).Length;
+
+            resultLength.Should().BeLessThan(initialLength);
+        }
+
         [TearDown]
         public async Task TearDown()
         {

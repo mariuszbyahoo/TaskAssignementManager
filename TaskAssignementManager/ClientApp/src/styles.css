@@ -2,3 +2,6 @@
 
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+mat-toolbar {
+  box-shadow: 0 0 6px black;
+}

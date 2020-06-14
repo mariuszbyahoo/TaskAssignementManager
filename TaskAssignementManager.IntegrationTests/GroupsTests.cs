@@ -99,8 +99,10 @@ namespace TaskAssignementManager.IntegrationTests
         {
             var initialGroups = await RestApiCall(route);
             var initialLength = JsonConvert.DeserializeObject<TaskGroup[]>(initialGroups.Content).Length;
+            var queryParams = new Dictionary<string, string>();
+            queryParams.Add("id", postGroupId.ToString());
 
-            var deleteResult = await RestApiCall($"{route}/{postGroupId}", RestSharp.Method.DELETE);
+            var deleteResult = await RestApiCall(route, RestSharp.Method.DELETE, queryParams);
             deleteResult.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
             var resultGroups = await RestApiCall(route);
@@ -112,7 +114,10 @@ namespace TaskAssignementManager.IntegrationTests
         [TearDown]
         public async Task TearDown()
         {
-            await RestApiCall($"{route}/{setUpGroupUuid}", RestSharp.Method.DELETE);
+            var queryParams = new Dictionary<string, string>();
+            queryParams.Add("id", setUpGroupUuid.ToString());
+
+            await RestApiCall(route, RestSharp.Method.DELETE, queryParams);
         }
     }
 }

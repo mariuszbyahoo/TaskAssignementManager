@@ -25,7 +25,7 @@ export class TaskGroupService implements OnInit {
   }
 
   deleteTaskGroup(id): Observable<any> {
-    let tempUrl = `${this.url}/${id}`;
+    let tempUrl = `${this.url}?id=${id}`;
     return this.http.delete(tempUrl);
   }
 

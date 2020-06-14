@@ -69,8 +69,7 @@ namespace TaskAssignementManager.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<ActionResult<TaskGroup>> Delete(Guid Id)
+        public async Task<ActionResult<TaskGroup>> Delete([FromQuery] Guid Id)
         {
             var entity = _taskGroups.GetEntity(Id);
             await _taskGroups.DeleteEntity(entity);

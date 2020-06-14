@@ -61,6 +61,23 @@ namespace TaskAssignementManager.IntegrationTests
             group.UserTasks.Count().Should().BeGreaterThan(0);
         }
 
+        [Test]
+        public async Task PatchGroup_WhenPatchWithDifferentName_ChangesGroupsNameAndReturnsItInResponse()
+        {
+            var newName = "Integration Test PATCHED name";
+            var queryParams = new Dictionary<string, string>();
+            queryParams.Add("id", setUpGroupUuid.ToString());
+            var getResult = await RestApiCall($"{route}/{setUpGroupUuid.ToString()}", RestSharp.Method.GET, queryParams);
+            var groupToPatch = JsonConvert.DeserializeObject<TaskGroup>(getResult.Content);
+            groupToPatch.Name = newName;
+
+            var patchResult = await RestApiCall(route, RestSharp.Method.PATCH, null, groupToPatch);
+            patchResult.StatusCode.Should().Be(HttpStatusCode.OK);
+            var resultGroup = JsonConvert.DeserializeObject<TaskGroup>(patchResult.Content);
+            resultGroup.Id.Should().Be(setUpGroupUuid);
+            resultGroup.Name.Should().Be(newName);                
+        }
+
         [TearDown]
         public async Task TearDown()
         {

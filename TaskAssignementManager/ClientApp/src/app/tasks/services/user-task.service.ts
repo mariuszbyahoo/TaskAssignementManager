@@ -26,7 +26,7 @@ export class UserTaskService {
   }
 
   getUserTask(id) {
-    let url = `${this.url}/${id}`;
+    let url = `${this.url}/take?id=${id}`;
     return this.http.get<IUserTask>(url);
   }
 

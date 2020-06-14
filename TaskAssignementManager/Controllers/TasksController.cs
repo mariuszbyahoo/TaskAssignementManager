@@ -29,11 +29,13 @@ namespace TaskAssignementManager.Web.Controllers
             return Ok(result);
         }
 
-        [Route("{Id}")]
+        [Route("take")]
         [HttpGet]
-        public ActionResult<UserTask> GetUserTask(Guid Id)
+        public ActionResult<UserTask> GetUserTask([FromQuery] Guid Id)
         {
             var entity = _userTasks.GetEntity(Id);
+            if (entity == null)
+                return NotFound();
             return Ok(entity);
         }
 
@@ -75,8 +77,7 @@ namespace TaskAssignementManager.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> Delete(Guid Id)
+        public async Task<IActionResult> Delete([FromQuery] Guid Id)
         {
             var entity = _userTasks.GetEntity(Id);
             await _userTasks.DeleteEntity(entity);
